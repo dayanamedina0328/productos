@@ -24,7 +24,7 @@
 - [x] 1.3 Instalar dependencias de desarrollo: `@types/node eslint-config-prettier prettier @testing-library/react @testing-library/jest-dom @testing-library/user-event vitest jsdom`
 - [x] 1.4 Crear estructura de carpetas completa según arquitectura hexagonal (`domain/`, `application/`, `infrastructure/`, `ui/`, `shared/`)
 - [x] 1.5 Configurar `tsconfig.json` con `strict: true` y path mapping `@/` → `src/`
-- [~] 1.6 Configurar Tailwind CSS con tema personalizado (colores, tipografía, espaciado del POS)
+- [x] 1.6 Configurar Tailwind CSS con tema personalizado (colores, tipografía, espaciado del POS)
 - [~] 1.7 Configurar ESLint + Prettier con reglas estrictas (no-any, import/order, etc.)
 - [~] 1.8 Configurar Redux Toolkit store base con middleware y devtools
 - [~] 1.9 Configurar React Router DOM v6 con rutas iniciales (`/login`, `/sales`, `/admin`)
