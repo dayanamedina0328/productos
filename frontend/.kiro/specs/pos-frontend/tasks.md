@@ -25,7 +25,7 @@
 - [x] 1.4 Crear estructura de carpetas completa según arquitectura hexagonal (`domain/`, `application/`, `infrastructure/`, `ui/`, `shared/`)
 - [x] 1.5 Configurar `tsconfig.json` con `strict: true` y path mapping `@/` → `src/`
 - [x] 1.6 Configurar Tailwind CSS con tema personalizado (colores, tipografía, espaciado del POS)
-- [~] 1.7 Configurar ESLint + Prettier con reglas estrictas (no-any, import/order, etc.)
+- [x] 1.7 Configurar ESLint + Prettier con reglas estrictas (no-any, import/order, etc.)
 - [~] 1.8 Configurar Redux Toolkit store base con middleware y devtools
 - [~] 1.9 Configurar React Router DOM v6 con rutas iniciales (`/login`, `/sales`, `/admin`)
 - [~] 1.10 Configurar Vitest con jsdom y coverage (umbral 80 % general, 90 % dominio)
