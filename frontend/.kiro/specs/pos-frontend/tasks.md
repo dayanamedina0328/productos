@@ -20,7 +20,7 @@
 ## Fase 1 — Configuración del Proyecto
 
 - [x] 1.1 Crear proyecto con Vite (`npm create vite@latest pos-frontend -- --template react-ts`)
-- [~] 1.2 Instalar dependencias principales: `@reduxjs/toolkit react-redux react-router-dom axios react-hook-form @hookform/resolvers yup clsx tailwindcss @tailwindcss/vite`
+- [x] 1.2 Instalar dependencias principales: `@reduxjs/toolkit react-redux react-router-dom axios react-hook-form @hookform/resolvers yup clsx tailwindcss @tailwindcss/vite`
 - [~] 1.3 Instalar dependencias de desarrollo: `@types/node eslint-config-prettier prettier @testing-library/react @testing-library/jest-dom @testing-library/user-event vitest jsdom`
 - [~] 1.4 Crear estructura de carpetas completa según arquitectura hexagonal (`domain/`, `application/`, `infrastructure/`, `ui/`, `shared/`)
 - [~] 1.5 Configurar `tsconfig.json` con `strict: true` y path mapping `@/` → `src/`
