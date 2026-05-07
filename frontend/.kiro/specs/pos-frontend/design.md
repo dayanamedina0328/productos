@@ -1,51 +1,51 @@
 # Design — SOAP POS Frontend
 
-## Stack Tecnológico
+## Technology Stack
 
-| Capa | Tecnología |
-|------|-----------|
+| Layer | Technology |
+|-------|-----------|
 | Framework | React 18 + TypeScript 5 (strict mode) |
 | Build | Vite |
-| Estado global | Redux Toolkit |
+| Global state | Redux Toolkit |
 | Routing | React Router DOM v6 |
-| Formularios | React Hook Form + Yup |
+| Forms | React Hook Form + Yup |
 | HTTP | Axios |
-| Estilos | Tailwind CSS |
+| Styles | Tailwind CSS |
 | Testing | Vitest + Testing Library + Playwright (E2E) |
 
 ---
 
-## Arquitectura Hexagonal (Ports & Adapters)
+## Hexagonal Architecture (Ports & Adapters)
 
 ```
 ┌─────────────────────────────────────────────────────────┐
-│                    INFRAESTRUCTURA                       │
+│                    INFRASTRUCTURE                        │
 │  ┌──────────────┐              ┌──────────────────────┐  │
 │  │  UI (React)  │              │  API / Storage / Pay │  │
-│  │  Adaptador   │              │  Adaptadores         │  │
-│  │  primario    │              │  secundarios         │  │
+│  │  Primary     │              │  Secondary           │  │
+│  │  Adapter     │              │  Adapters            │  │
 │  └──────┬───────┘              └──────────┬───────────┘  │
-│         │ Puerto de entrada               │ Puerto de salida
+│         │ Input port                      │ Output port
 │  ───────▼─────────────────────────────────▼────────────  │
-│  │              APLICACIÓN (Casos de Uso)              │  │
+│  │              APPLICATION (Use Cases)                │  │
 │  │   GetProducts · ProcessSale · AddProductToCart      │  │
 │  ──────────────────────────────────────────────────────  │
 │         │                                               │
 │  ───────▼──────────────────────────────────────────────  │
-│  │                  DOMINIO                            │  │
-│  │  Entidades · Validaciones · Eventos · Puertos       │  │
+│  │                    DOMAIN                           │  │
+│  │  Entities · Validations · Events · Ports            │  │
 │  ──────────────────────────────────────────────────────  │
 └─────────────────────────────────────────────────────────┘
 ```
 
-**Regla de dependencia:**
-- `domain` no importa de ninguna otra capa.
-- `application` solo importa de `domain`.
-- `infrastructure` y `ui` importan de `application` y `domain`.
+**Dependency rule:**
+- `domain` does not import from any other layer.
+- `application` only imports from `domain`.
+- `infrastructure` and `ui` import from `application` and `domain`.
 
 ---
 
-## Estructura de Carpetas
+## Folder Structure
 
 ```
 src/
@@ -53,7 +53,7 @@ src/
 │   ├── entities/          # Product, Cart, CartItem, Sale, SaleItem, Customer, Category
 │   ├── ports/             # ProductRepository, CartRepository, SaleRepository,
 │   │                      # CustomerRepository, PaymentGateway
-│   ├── validations/       # ProductValidations, CartValidations (clases estáticas)
+│   ├── validations/       # ProductValidations, CartValidations (static classes)
 │   └── events/            # DomainEvents (ProductAddedToCart, SaleCompleted, StockUpdated)
 │
 ├── application/
@@ -68,7 +68,7 @@ src/
 │   │                      # TransferPaymentGateway, MixedPaymentGateway
 │   ├── mappers/           # ProductMapper, SaleMapper, CustomerMapper, CartMapper
 │   └── di/
-│       └── container.ts   # Único lugar donde se usa `new` para instanciar dependencias
+│       └── container.ts   # Only place where `new` is used to instantiate dependencies
 │
 ├── ui/
 │   ├── pages/
@@ -89,9 +89,9 @@ src/
 
 ---
 
-## Contratos de Datos
+## Data Contracts
 
-### Entidades de Dominio
+### Domain Entities
 
 ```typescript
 // domain/entities/Product.ts
@@ -195,7 +195,7 @@ export enum SaleStatus {
 }
 ```
 
-### Puertos de Salida
+### Output Ports
 
 ```typescript
 // domain/ports/ProductRepository.ts
@@ -243,7 +243,7 @@ export interface PaymentResult {
 }
 ```
 
-### Puertos de Entrada (Casos de Uso)
+### Input Ports (Use Cases)
 
 ```typescript
 export interface GetProducts {
@@ -260,7 +260,7 @@ export interface ProcessSale {
 }
 ```
 
-### DTOs de Aplicación
+### Application DTOs
 
 ```typescript
 export interface CreateProductRequest {
@@ -285,7 +285,7 @@ export interface PaymentDetails {
 }
 ```
 
-### Tipos Compartidos
+### Shared Types
 
 ```typescript
 // shared/types/AsyncState.ts
@@ -302,7 +302,7 @@ export interface PaginatedResponse<T> {
 }
 
 // ui/types/UIState.ts
-// AppNotification evita colisión con la interfaz Notification del DOM
+// AppNotification avoids collision with the DOM Notification interface
 export interface AppNotification {
   id: string;
   type: 'success' | 'error' | 'warning' | 'info';
@@ -313,20 +313,20 @@ export interface AppNotification {
 
 ---
 
-## Validaciones de Dominio
+## Domain Validations
 
 ```typescript
 // domain/validations/ProductValidations.ts
 export class ProductValidations {
   static validatePrice(price: number): ValidationResult {
-    if (price <= 0)     return { isValid: false, errors: ['El precio debe ser mayor a 0'] };
-    if (price > 999999) return { isValid: false, errors: ['El precio no puede superar 999,999'] };
+    if (price <= 0)     return { isValid: false, errors: ['Price must be greater than 0'] };
+    if (price > 999999) return { isValid: false, errors: ['Price cannot exceed 999,999'] };
     return { isValid: true };
   }
 
   static validateStock(stock: number, minStock: number): ValidationResult {
-    if (stock < 0)        return { isValid: false, errors: ['El stock no puede ser negativo'] };
-    if (stock < minStock) return { isValid: false, errors: ['El stock no puede ser menor al stock mínimo'] };
+    if (stock < 0)        return { isValid: false, errors: ['Stock cannot be negative'] };
+    if (stock < minStock) return { isValid: false, errors: ['Stock cannot be less than minimum stock'] };
     return { isValid: true };
   }
 }
@@ -334,11 +334,11 @@ export class ProductValidations {
 // domain/validations/CartValidations.ts
 export class CartValidations {
   static validateAddItem(cart: Cart, product: Product, quantity: number): ValidationResult {
-    if (quantity <= 0) return { isValid: false, errors: ['La cantidad debe ser mayor a 0'] };
+    if (quantity <= 0) return { isValid: false, errors: ['Quantity must be greater than 0'] };
     const existing = cart.items.find(i => i.product.id === product.id);
     const total = (existing?.quantity ?? 0) + quantity;
     if (total > product.stock) {
-      return { isValid: false, errors: [`Stock insuficiente. Disponible: ${product.stock}`] };
+      return { isValid: false, errors: [`Insufficient stock. Available: ${product.stock}`] };
     }
     return { isValid: true };
   }
@@ -347,10 +347,10 @@ export class CartValidations {
 
 ---
 
-## Inyección de Dependencias
+## Dependency Injection
 
 ```typescript
-// infrastructure/di/container.ts — único lugar donde se usa `new`
+// infrastructure/di/container.ts — only place where `new` is used
 export const useCases = {
   getProducts:      new GetProductsUseCase(new ProductAPIAdapter(httpClient)),
   processSale:      new ProcessSaleUseCase(new SaleAPIAdapter(httpClient), new CashPaymentGateway()),
@@ -360,7 +360,7 @@ export const useCases = {
 
 ---
 
-## Diseño de Componentes Clave
+## Key Component Design
 
 ### SalesPage
 
@@ -399,7 +399,7 @@ interface CartPanelProps {
   cart: Cart;
   customer?: Customer;
   onCustomerSelect: (customer: Customer) => void;
-  onCustomerClear: () => void;          // separado para evitar null as any
+  onCustomerClear: () => void;          // separate to avoid null as any
   onItemRemove: (itemId: string) => void;
   onQuantityUpdate: (itemId: string, quantity: number) => void;
   onCheckout: () => void;
@@ -419,10 +419,10 @@ interface CheckoutModalProps {
 }
 ```
 
-### ProductCard — Funciones auxiliares
+### ProductCard — Helper Functions
 
 ```typescript
-// Product es interfaz pura — las validaciones son funciones independientes
+// Product is a pure interface — validations are independent functions
 function isProductAvailable(p: Product): boolean {
   return p.isActive && p.stock > 0;
 }
@@ -438,10 +438,10 @@ function getStockStatus(stock: number, minStock: number): 'ok' | 'low' | 'out' {
 
 ## Redux Slices
 
-| Slice | Estado |
-|-------|--------|
+| Slice | State |
+|-------|-------|
 | `productsSlice` | `AsyncState<PaginatedResponse<Product>>` |
-| `cartSlice` | `Cart` + estado de operaciones |
+| `cartSlice` | `Cart` + operation state |
 | `salesSlice` | `AsyncState<PaginatedResponse<Sale>>` |
 | `customersSlice` | `AsyncState<PaginatedResponse<Customer>>` |
 | `uiSlice` | `AppNotification[]` + `ModalState` |
@@ -451,10 +451,10 @@ function getStockStatus(stock: number, minStock: number): 'ok' | 'low' | 'out' {
 ## Routing
 
 ```
-/                   → redirige a /sales
-/login              → LoginPage (pública)
+/                   → redirects to /sales
+/login              → LoginPage (public)
 /sales              → SalesPage (USER + ADMIN)
-/admin              → AdminPage (solo ADMIN)
+/admin              → AdminPage (ADMIN only)
   /admin/products   → ProductManagement
   /admin/customers  → CustomerManagement
   /admin/sales      → SalesHistory
@@ -463,52 +463,52 @@ function getStockStatus(stock: number, minStock: number): 'ok' | 'low' | 'out' {
 
 ---
 
-## Layout Responsive
+## Responsive Layout
 
 ```
 Desktop (1920×1080):  grid-template-columns: 2fr 1fr
-Tablet  (≤1280px):    grid-template-columns: 1fr  (carrito debajo, 400px)
-Móvil   (≤768px):     carrito como drawer fijo en la parte inferior
+Tablet  (≤1280px):    grid-template-columns: 1fr  (cart below, 400px)
+Mobile  (≤768px):     cart as a fixed bottom drawer
 ```
 
 ---
 
-## Atajos de Teclado
+## Keyboard Shortcuts
 
-| Atajo | Acción |
-|-------|--------|
-| `Ctrl+K` | Enfocar búsqueda de productos |
-| `Ctrl+Enter` | Iniciar checkout |
-| `F2` | Abrir selector de cliente |
-| `F3` | Ir a gestión de productos |
-| `Escape` | Cerrar modal activo |
-| `+` / `-` | Aumentar / disminuir cantidad del ítem seleccionado |
-| `Delete` | Eliminar ítem seleccionado del carrito |
-
----
-
-## Endpoints REST Consumidos
-
-| Método | Ruta | Descripción |
-|--------|------|-------------|
-| GET | `/products` | Listar productos con filtros y paginación |
-| GET | `/products/:id` | Obtener producto por ID |
-| POST | `/products` | Crear producto |
-| PUT | `/products/:id` | Actualizar producto |
-| DELETE | `/products/:id` | Eliminar producto |
-| GET | `/customers` | Listar clientes |
-| GET | `/customers/:id` | Obtener cliente por ID |
-| POST | `/customers` | Crear cliente |
-| GET | `/carts/:id` | Obtener carrito |
-| POST | `/carts` | Crear carrito |
-| PUT | `/carts/:id/items` | Agregar ítem al carrito |
-| POST | `/sales` | Procesar venta |
-| GET | `/sales` | Listar ventas con filtros |
-| GET | `/sales/:id` | Obtener venta por ID |
+| Shortcut | Action |
+|----------|--------|
+| `Ctrl+K` | Focus product search |
+| `Ctrl+Enter` | Start checkout |
+| `F2` | Open customer selector |
+| `F3` | Go to product management |
+| `Escape` | Close active modal |
+| `+` / `-` | Increase / decrease selected item quantity |
+| `Delete` | Remove selected item from cart |
 
 ---
 
-## Eventos de Dominio
+## Consumed REST Endpoints
+
+| Method | Route | Description |
+|--------|-------|-------------|
+| GET | `/products` | List products with filters and pagination |
+| GET | `/products/:id` | Get product by ID |
+| POST | `/products` | Create product |
+| PUT | `/products/:id` | Update product |
+| DELETE | `/products/:id` | Delete product |
+| GET | `/customers` | List customers |
+| GET | `/customers/:id` | Get customer by ID |
+| POST | `/customers` | Create customer |
+| GET | `/carts/:id` | Get cart |
+| POST | `/carts` | Create cart |
+| PUT | `/carts/:id/items` | Add item to cart |
+| POST | `/sales` | Process sale |
+| GET | `/sales` | List sales with filters |
+| GET | `/sales/:id` | Get sale by ID |
+
+---
+
+## Domain Events
 
 ```typescript
 export interface ProductAddedToCart extends DomainEvent {
@@ -529,13 +529,13 @@ export interface StockUpdated extends DomainEvent {
 
 ---
 
-## Decisiones de Diseño
+## Design Decisions
 
-| Decisión | Justificación |
-|----------|--------------|
-| `AppNotification` en lugar de `Notification` | Evita colisión con la interfaz `Notification` del DOM |
-| `CartItemRow` en lugar de `CartItem` para el componente | Evita colisión con la interfaz `CartItem` del dominio |
-| `onCustomerClear: () => void` separado de `onCustomerSelect` | Evita pasar `null as any`; tipado explícito y seguro |
-| Entidades como interfaces puras (sin métodos) | Cumple el principio de responsabilidad única; las validaciones son funciones independientes |
-| `container.ts` como único punto de instanciación | Facilita el intercambio de adaptadores (API → mock) sin tocar los casos de uso |
-| Debounce de 300 ms en búsqueda | Balance entre responsividad y reducción de llamadas a la API |
+| Decision | Rationale |
+|----------|-----------|
+| `AppNotification` instead of `Notification` | Avoids collision with the DOM `Notification` interface |
+| `CartItemRow` instead of `CartItem` for the component | Avoids collision with the domain `CartItem` interface |
+| `onCustomerClear: () => void` separate from `onCustomerSelect` | Avoids passing `null as any`; explicit and type-safe |
+| Entities as pure interfaces (no methods) | Follows the single responsibility principle; validations are independent functions |
+| `container.ts` as the single instantiation point | Makes it easy to swap adapters (API → mock) without touching use cases |
+| 300 ms debounce on search | Balance between responsiveness and reducing API calls |

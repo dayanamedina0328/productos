@@ -1,162 +1,162 @@
 # Requirements — SOAP POS Frontend
 
-## Descripción General
+## General Description
 
-**SOAP POS** es una aplicación web de punto de venta (Point of Sale) construida con React 18 + TypeScript 5 bajo arquitectura hexagonal. Permite a los operadores realizar ventas, emitir facturas y administrar el inventario desde una interfaz web optimizada para terminal de caja.
+**SOAP POS** is a web-based point of sale application built with React 18 + TypeScript 5 under a hexagonal architecture. It allows operators to process sales, issue invoices, and manage inventory from a web interface optimized for a cash register terminal.
 
-Dos roles de usuario: **Cajero (USER)** y **Administrador (ADMIN)**.
-
----
-
-## Requisitos Funcionales
-
-### RF-01 — Autenticación y Roles
-
-- **RF-01.1** El sistema debe permitir el inicio de sesión con credenciales (usuario y contraseña).
-- **RF-01.2** El sistema debe soportar dos roles: `USER` (Cajero) y `ADMIN` (Administrador).
-- **RF-01.3** El rol `USER` puede realizar ventas, consultar productos y clientes, y ver su propio historial de ventas.
-- **RF-01.4** El rol `ADMIN` tiene acceso a todo lo anterior más la gestión de productos, clientes, usuarios y reportes completos.
-- **RF-01.5** Las rutas protegidas deben redirigir al login si el usuario no está autenticado.
-- **RF-01.6** Las rutas de administración deben redirigir con error 403 si el usuario autenticado no tiene rol `ADMIN`.
-
-### RF-02 — Terminal de Ventas
-
-- **RF-02.1** El cajero debe poder buscar productos por nombre o SKU mediante un campo de búsqueda con debounce de 300 ms.
-- **RF-02.2** Los productos deben poder filtrarse por categoría mediante pestañas.
-- **RF-02.3** Al seleccionar un producto, el sistema debe validar que haya stock disponible antes de agregarlo al carrito.
-- **RF-02.4** El cajero debe poder ajustar la cantidad de cada ítem del carrito (incrementar, decrementar o ingresar valor directo).
-- **RF-02.5** El cajero debe poder eliminar ítems individuales del carrito.
-- **RF-02.6** El cajero debe poder limpiar el carrito completo.
-- **RF-02.7** El cajero debe poder asociar un cliente al carrito para emitir factura con NIT.
-- **RF-02.8** El sistema debe mostrar subtotal, IVA (19 %) y total en tiempo real conforme se modifica el carrito.
-- **RF-02.9** El cajero debe poder retener una venta en curso para atender otra.
-- **RF-02.10** El cajero debe poder aplicar descuentos a ítems o al total del carrito.
-
-### RF-03 — Checkout y Facturación
-
-- **RF-03.1** Al iniciar el checkout, el sistema debe mostrar un modal con el resumen del pedido.
-- **RF-03.2** El sistema debe soportar tres métodos de pago: efectivo, tarjeta y transferencia.
-- **RF-03.3** Para pago en efectivo, el sistema debe calcular y mostrar el cambio a devolver.
-- **RF-03.4** Para pago con tarjeta, el sistema debe solicitar los últimos cuatro dígitos y el código de autorización.
-- **RF-03.5** Para pago por transferencia, el sistema debe solicitar la referencia del comprobante.
-- **RF-03.6** Al completar la venta, el sistema debe generar una factura con número único, detalle de productos, subtotal, IVA y total.
-- **RF-03.7** Tras completar la venta, el stock de cada producto vendido debe decrementarse automáticamente.
-- **RF-03.8** Tras completar la venta, el carrito debe limpiarse y quedar listo para la siguiente operación.
-
-### RF-04 — Gestión de Productos (ADMIN)
-
-- **RF-04.1** El administrador debe poder crear productos con los campos: SKU, nombre, descripción, precio, costo, stock, stock mínimo, categoría e imagen (opcional).
-- **RF-04.2** El administrador debe poder editar cualquier campo de un producto existente.
-- **RF-04.3** El administrador debe poder desactivar (borrado lógico) un producto; no se puede eliminar si tiene ventas asociadas.
-- **RF-04.4** El sistema debe mostrar una alerta visual cuando el stock de un producto esté por debajo del stock mínimo.
-- **RF-04.5** El listado de productos debe soportar búsqueda, filtros por categoría y paginación.
-
-### RF-05 — Gestión de Clientes (ADMIN)
-
-- **RF-05.1** El administrador debe poder registrar clientes con los campos: nombre, NIT, email (opcional), teléfono (opcional), dirección (opcional) y tipo (regular, VIP, corporativo).
-- **RF-05.2** El NIT debe ser único en el sistema; el formulario debe validarlo antes de guardar.
-- **RF-05.3** El administrador debe poder editar los datos de un cliente existente.
-- **RF-05.4** El listado de clientes debe soportar búsqueda por nombre o NIT y filtro por tipo.
-
-### RF-06 — Historial de Ventas
-
-- **RF-06.1** El sistema debe mostrar el historial de ventas con filtros por fecha, cliente, método de pago y estado.
-- **RF-06.2** El cajero solo puede ver sus propias ventas; el administrador puede ver todas.
-- **RF-06.3** El administrador debe poder cancelar una venta, lo que revierte el stock de los productos involucrados.
-- **RF-06.4** El historial debe soportar paginación.
-
-### RF-07 — Reportes (ADMIN)
-
-- **RF-07.1** El panel de reportes debe mostrar resúmenes de ingresos diarios, semanales y mensuales.
-- **RF-07.2** El panel debe mostrar los productos más vendidos por período.
-- **RF-07.3** Las métricas deben presentarse con gráficos visuales.
-
-### RF-08 — Atajos de Teclado
-
-- **RF-08.1** `Ctrl+K` debe enfocar el campo de búsqueda de productos.
-- **RF-08.2** `Ctrl+Enter` debe iniciar el proceso de checkout.
-- **RF-08.3** `F2` debe abrir el selector de cliente.
-- **RF-08.4** `F3` debe navegar a la gestión de productos.
-- **RF-08.5** `Escape` debe cerrar el modal activo.
-- **RF-08.6** `+` / `-` deben aumentar o disminuir la cantidad del ítem seleccionado en el carrito.
-- **RF-08.7** `Delete` debe eliminar el ítem seleccionado del carrito.
+Two user roles: **Cashier (USER)** and **Administrator (ADMIN)**.
 
 ---
 
-## Requisitos No Funcionales
+## Functional Requirements
 
-### RNF-01 — Rendimiento
+### RF-01 — Authentication and Roles
 
-- **RNF-01.1** El First Contentful Paint debe ser inferior a 3 segundos en conexión estándar.
-- **RNF-01.2** Las interacciones frecuentes (agregar al carrito, actualizar cantidad) deben responder en menos de 100 ms.
-- **RNF-01.3** Las listas con más de 100 ítems deben usar virtual scrolling.
+- **RF-01.1** The system must allow login with credentials (username and password).
+- **RF-01.2** The system must support two roles: `USER` (Cashier) and `ADMIN` (Administrator).
+- **RF-01.3** The `USER` role can process sales, look up products and customers, and view their own sales history.
+- **RF-01.4** The `ADMIN` role has access to everything above plus product, customer, user management and full reports.
+- **RF-01.5** Protected routes must redirect to login if the user is not authenticated.
+- **RF-01.6** Admin routes must redirect with a 403 error if the authenticated user does not have the `ADMIN` role.
 
-### RNF-02 — Accesibilidad
+### RF-02 — Sales Terminal
 
-- **RNF-02.1** La interfaz debe cumplir WCAG 2.1 nivel AA.
-- **RNF-02.2** Todos los modales deben implementar focus trap y atributo `aria-modal`.
-- **RNF-02.3** La navegación completa por teclado debe estar disponible en todas las pantallas.
+- **RF-02.1** The cashier must be able to search for products by name or SKU using a search field with a 300 ms debounce.
+- **RF-02.2** Products must be filterable by category using tabs.
+- **RF-02.3** When selecting a product, the system must validate that stock is available before adding it to the cart.
+- **RF-02.4** The cashier must be able to adjust the quantity of each cart item (increment, decrement, or enter a value directly).
+- **RF-02.5** The cashier must be able to remove individual items from the cart.
+- **RF-02.6** The cashier must be able to clear the entire cart.
+- **RF-02.7** The cashier must be able to associate a customer with the cart to issue an invoice with NIT.
+- **RF-02.8** The system must display subtotal, VAT (19 %) and total in real time as the cart is modified.
+- **RF-02.9** The cashier must be able to hold an ongoing sale to attend another one.
+- **RF-02.10** The cashier must be able to apply discounts to items or to the cart total.
 
-### RNF-03 — Calidad de Código
+### RF-03 — Checkout and Invoicing
 
-- **RNF-03.1** El proyecto debe compilar sin errores con `strict: true` en TypeScript.
-- **RNF-03.2** No debe haber warnings de ESLint en el código fuente.
-- **RNF-03.3** La cobertura de tests debe ser ≥ 80 % general y ≥ 90 % en la capa de dominio.
+- **RF-03.1** When starting checkout, the system must display a modal with the order summary.
+- **RF-03.2** The system must support three payment methods: cash, card, and bank transfer.
+- **RF-03.3** For cash payment, the system must calculate and display the change to return.
+- **RF-03.4** For card payment, the system must request the last four digits and the authorization code.
+- **RF-03.5** For bank transfer payment, the system must request the voucher reference.
+- **RF-03.6** Upon completing the sale, the system must generate an invoice with a unique number, product details, subtotal, VAT, and total.
+- **RF-03.7** After completing the sale, the stock of each sold product must be decremented automatically.
+- **RF-03.8** After completing the sale, the cart must be cleared and ready for the next operation.
 
-### RNF-04 — Arquitectura
+### RF-04 — Product Management (ADMIN)
 
-- **RNF-04.1** La capa `domain` no debe importar de `application`, `infrastructure` ni `ui`.
-- **RNF-04.2** La capa `application` solo debe importar de `domain`.
-- **RNF-04.3** Las entidades de dominio deben ser interfaces puras (sin métodos de instancia).
-- **RNF-04.4** Las validaciones de dominio deben ser funciones puras o clases con métodos estáticos.
-- **RNF-04.5** La instanciación de dependencias debe ocurrir únicamente en `infrastructure/di/container.ts`.
-- **RNF-04.6** No deben existir dependencias circulares entre módulos.
+- **RF-04.1** The administrator must be able to create products with the fields: SKU, name, description, price, cost, stock, minimum stock, category, and image (optional).
+- **RF-04.2** The administrator must be able to edit any field of an existing product.
+- **RF-04.3** The administrator must be able to deactivate (soft delete) a product; it cannot be deleted if it has associated sales.
+- **RF-04.4** The system must display a visual alert when a product's stock falls below the minimum stock.
+- **RF-04.5** The product list must support search, category filters, and pagination.
+
+### RF-05 — Customer Management (ADMIN)
+
+- **RF-05.1** The administrator must be able to register customers with the fields: name, NIT, email (optional), phone (optional), address (optional), and type (regular, VIP, corporate).
+- **RF-05.2** The NIT must be unique in the system; the form must validate it before saving.
+- **RF-05.3** The administrator must be able to edit an existing customer's data.
+- **RF-05.4** The customer list must support search by name or NIT and filter by type.
+
+### RF-06 — Sales History
+
+- **RF-06.1** The system must display the sales history with filters by date, customer, payment method, and status.
+- **RF-06.2** The cashier can only see their own sales; the administrator can see all.
+- **RF-06.3** The administrator must be able to cancel a sale, which reverts the stock of the involved products.
+- **RF-06.4** The history must support pagination.
+
+### RF-07 — Reports (ADMIN)
+
+- **RF-07.1** The reports panel must display daily, weekly, and monthly revenue summaries.
+- **RF-07.2** The panel must display the best-selling products by period.
+- **RF-07.3** Metrics must be presented with visual charts.
+
+### RF-08 — Keyboard Shortcuts
+
+- **RF-08.1** `Ctrl+K` must focus the product search field.
+- **RF-08.2** `Ctrl+Enter` must start the checkout process.
+- **RF-08.3** `F2` must open the customer selector.
+- **RF-08.4** `F3` must navigate to product management.
+- **RF-08.5** `Escape` must close the active modal.
+- **RF-08.6** `+` / `-` must increase or decrease the quantity of the selected cart item.
+- **RF-08.7** `Delete` must remove the selected cart item.
+
+---
+
+## Non-Functional Requirements
+
+### RNF-01 — Performance
+
+- **RNF-01.1** First Contentful Paint must be under 3 seconds on a standard connection.
+- **RNF-01.2** Frequent interactions (add to cart, update quantity) must respond in under 100 ms.
+- **RNF-01.3** Lists with more than 100 items must use virtual scrolling.
+
+### RNF-02 — Accessibility
+
+- **RNF-02.1** The interface must comply with WCAG 2.1 level AA.
+- **RNF-02.2** All modals must implement focus trap and the `aria-modal` attribute.
+- **RNF-02.3** Full keyboard navigation must be available on all screens.
+
+### RNF-03 — Code Quality
+
+- **RNF-03.1** The project must compile without errors with `strict: true` in TypeScript.
+- **RNF-03.2** There must be no ESLint warnings in the source code.
+- **RNF-03.3** Test coverage must be ≥ 80 % overall and ≥ 90 % in the domain layer.
+
+### RNF-04 — Architecture
+
+- **RNF-04.1** The `domain` layer must not import from `application`, `infrastructure`, or `ui`.
+- **RNF-04.2** The `application` layer must only import from `domain`.
+- **RNF-04.3** Domain entities must be pure interfaces (no instance methods).
+- **RNF-04.4** Domain validations must be pure functions or classes with static methods.
+- **RNF-04.5** Dependency instantiation must occur only in `infrastructure/di/container.ts`.
+- **RNF-04.6** There must be no circular dependencies between modules.
 
 ### RNF-05 — Responsive
 
-- **RNF-05.1** El layout principal (terminal de ventas) debe funcionar correctamente en resoluciones de 1920×1080 (desktop), ≤ 1280 px (tablet) y ≤ 768 px (móvil).
-- **RNF-05.2** En móvil, el panel del carrito debe comportarse como un drawer deslizable desde la parte inferior.
+- **RNF-05.1** The main layout (sales terminal) must work correctly at 1920×1080 (desktop), ≤ 1280 px (tablet), and ≤ 768 px (mobile).
+- **RNF-05.2** On mobile, the cart panel must behave as a bottom drawer.
 
-### RNF-06 — Offline y Persistencia
+### RNF-06 — Offline and Persistence
 
-- **RNF-06.1** El carrito activo debe persistir en `localStorage` para sobrevivir recargas de página.
-- **RNF-06.2** El catálogo de productos debe poder cachearse en `IndexedDB` para uso offline básico.
+- **RNF-06.1** The active cart must persist in `localStorage` to survive page reloads.
+- **RNF-06.2** The product catalog must be cacheable in `IndexedDB` for basic offline use.
 
 ---
 
-## Criterios de Aceptación por Módulo
+## Acceptance Criteria by Module
 
-### CA-01 — Flujo de Venta Completo
+### CA-01 — Complete Sale Flow
 
-**Dado** que el cajero tiene productos en el carrito y selecciona un método de pago válido,  
-**cuando** hace clic en "Completar Venta",  
-**entonces** el sistema debe:
-1. Procesar el pago a través del gateway correspondiente.
-2. Generar una factura con número único.
-3. Decrementar el stock de cada producto vendido.
-4. Limpiar el carrito.
-5. Mostrar una notificación de éxito con el número de factura.
+**Given** the cashier has products in the cart and selects a valid payment method,  
+**when** they click "Complete Sale",  
+**then** the system must:
+1. Process the payment through the corresponding gateway.
+2. Generate an invoice with a unique number.
+3. Decrement the stock of each sold product.
+4. Clear the cart.
+5. Display a success notification with the invoice number.
 
-### CA-02 — Validación de Stock
+### CA-02 — Stock Validation
 
-**Dado** que un producto tiene stock = 0 o `isActive = false`,  
-**cuando** el cajero intenta agregarlo al carrito,  
-**entonces** el botón "Agregar" debe estar deshabilitado y el sistema no debe modificar el carrito.
+**Given** a product has stock = 0 or `isActive = false`,  
+**when** the cashier tries to add it to the cart,  
+**then** the "Add" button must be disabled and the system must not modify the cart.
 
-### CA-03 — Alerta de Stock Mínimo
+### CA-03 — Minimum Stock Alert
 
-**Dado** que el stock de un producto es menor o igual a `minStock`,  
-**cuando** el producto se muestra en el catálogo o en el panel de administración,  
-**entonces** el sistema debe mostrar un indicador visual de stock bajo (badge o color diferenciado).
+**Given** a product's stock is less than or equal to `minStock`,  
+**when** the product is displayed in the catalog or in the admin panel,  
+**then** the system must show a low-stock visual indicator (badge or differentiated color).
 
-### CA-04 — Persistencia del Carrito
+### CA-04 — Cart Persistence
 
-**Dado** que el cajero tiene ítems en el carrito,  
-**cuando** recarga la página,  
-**entonces** el carrito debe restaurarse con los mismos ítems y cantidades.
+**Given** the cashier has items in the cart,  
+**when** they reload the page,  
+**then** the cart must be restored with the same items and quantities.
 
-### CA-05 — Control de Acceso
+### CA-05 — Access Control
 
-**Dado** que un usuario con rol `USER` intenta acceder a una ruta de administración,  
-**cuando** navega a `/admin`,  
-**entonces** el sistema debe redirigirlo con un mensaje de acceso denegado.
+**Given** a user with the `USER` role tries to access an admin route,  
+**when** they navigate to `/admin`,  
+**then** the system must redirect them with an access denied message.
