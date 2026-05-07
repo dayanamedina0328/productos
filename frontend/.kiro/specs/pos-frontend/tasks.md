@@ -28,7 +28,7 @@
 - [x] 1.7 Configurar ESLint + Prettier con reglas estrictas (no-any, import/order, etc.)
 - [x] 1.8 Configurar Redux Toolkit store base con middleware y devtools
 - [x] 1.9 Configurar React Router DOM v6 con rutas iniciales (`/login`, `/sales`, `/admin`)
-- [~] 1.10 Configurar Vitest con jsdom y coverage (umbral 80 % general, 90 % dominio)
+- [x] 1.10 Configurar Vitest con jsdom y coverage (umbral 80 % general, 90 % dominio)
 
 ---
 
