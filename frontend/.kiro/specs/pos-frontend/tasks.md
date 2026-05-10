@@ -34,7 +34,7 @@
 
 ## Phase 2 — Domain
 
-- [~] 2.1 Create `Product` interface with all fields (`id`, `sku`, `name`, `description`, `price`, `cost`, `stock`, `minStock`, `category`, `imageUrl?`, `isActive`, `createdAt`, `updatedAt`)
+- [x] 2.1 Create `Product` interface with all fields (`id`, `sku`, `name`, `description`, `price`, `cost`, `stock`, `minStock`, `category`, `imageUrl?`, `isActive`, `createdAt`, `updatedAt`)
 - [~] 2.2 Create `Category` interface (`id`, `name`, `description?`, `parentId?`, `level`, `isActive`)
 - [~] 2.3 Create `Customer` interface and `CustomerType` enum (REGULAR, VIP, CORPORATE)
 - [~] 2.4 Create `Cart` and `CartItem` interfaces
