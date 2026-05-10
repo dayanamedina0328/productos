@@ -57,11 +57,11 @@
 ## Phase 3 — Use Cases
 
 ### Products
-- [~] 3.1 Implement `GetProductsUseCase` — returns `PaginatedResponse<Product>` with optional filters
-- [~] 3.2 Implement `CreateProductUseCase` — validates price and stock before persisting
-- [~] 3.3 Implement `UpdateProductUseCase`
-- [~] 3.4 Implement `DeleteProductUseCase` — validates the product has no associated sales
-- [~] 3.5 Implement `SearchProductsUseCase` — search by name or SKU
+- [x] 3.1 Implement `GetProductsUseCase` — returns `PaginatedResponse<Product>` with optional filters
+- [x] 3.2 Implement `CreateProductUseCase` — validates price and stock before persisting
+- [x] 3.3 Implement `UpdateProductUseCase`
+- [x] 3.4 Implement `DeleteProductUseCase` — validates the product has no associated sales
+- [x] 3.5 Implement `SearchProductsUseCase` — search by name or SKU
 
 ### Cart
 - [~] 3.6 Implement `AddProductToCartUseCase` — validates stock in real time with `CartValidations`
