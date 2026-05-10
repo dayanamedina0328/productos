@@ -44,11 +44,11 @@
 - [x] 2.8 Implement `CartValidations.validateAddItem()` — validates quantity > 0 and available stock
 - [x] 2.9 Implement pure function `isProductAvailable(product: Product): boolean`
 - [x] 2.10 Implement pure function `getStockStatus(stock, minStock): 'ok' | 'low' | 'out'`
-- [~] 2.11 Create `ProductRepository` interface (findAll, findById, save, update, delete)
-- [~] 2.12 Create `CartRepository` interface (findById, save, addItem, removeItem, clear)
-- [~] 2.13 Create `SaleRepository` interface (findAll, findById, save, cancel)
-- [~] 2.14 Create `CustomerRepository` interface (findAll, findById, save)
-- [~] 2.15 Create `PaymentGateway` interface with `process()` and `PaymentResult` type
+- [x] 2.11 Create `ProductRepository` interface (findAll, findById, save, update, delete)
+- [x] 2.12 Create `CartRepository` interface (findById, save, addItem, removeItem, clear)
+- [x] 2.13 Create `SaleRepository` interface (findAll, findById, save, cancel)
+- [x] 2.14 Create `CustomerRepository` interface (findAll, findById, save)
+- [x] 2.15 Create `PaymentGateway` interface with `process()` and `PaymentResult` type
 - [~] 2.16 Create value objects: `Money` (safe arithmetic), `SKU` (format validation), `Quantity` (limits)
 - [~] 2.17 Create domain events: `ProductAddedToCart`, `SaleCompleted`, `StockUpdated`
 
