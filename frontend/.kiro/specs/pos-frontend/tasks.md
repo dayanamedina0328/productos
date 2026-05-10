@@ -64,12 +64,12 @@
 - [x] 3.5 Implement `SearchProductsUseCase` — search by name or SKU
 
 ### Cart
-- [~] 3.6 Implement `AddProductToCartUseCase` — validates stock in real time with `CartValidations`
-- [~] 3.7 Implement `RemoveFromCartUseCase`
-- [~] 3.8 Implement `UpdateCartItemUseCase`
-- [~] 3.9 Implement `ClearCartUseCase`
-- [~] 3.10 Implement `ApplyDiscountUseCase`
-- [~] 3.11 Implement `HoldSaleUseCase` — saves a pending sale to resume later
+- [x] 3.6 Implement `AddProductToCartUseCase` — validates stock in real time with `CartValidations`
+- [x] 3.7 Implement `RemoveFromCartUseCase`
+- [x] 3.8 Implement `UpdateCartItemUseCase`
+- [x] 3.9 Implement `ClearCartUseCase`
+- [x] 3.10 Implement `ApplyDiscountUseCase`
+- [x] 3.11 Implement `HoldSaleUseCase` — saves a pending sale to resume later
 
 ### Sales
 - [~] 3.12 Implement `ProcessSaleUseCase` — requires `paymentMethod` and `paymentDetails`; generates invoice and decrements stock
