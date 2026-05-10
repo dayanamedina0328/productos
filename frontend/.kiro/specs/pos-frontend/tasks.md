@@ -178,25 +178,25 @@
 ## Phase 7 — Integration and Global State
 
 ### Redux Slices
-- [~] 7.1 Implement `productsSlice` with state `AsyncState<PaginatedResponse<Product>>`
-- [~] 7.2 Implement `cartSlice` with actions: addItem, removeItem, updateQuantity, clear, hold
-- [~] 7.3 Implement `salesSlice` with state `AsyncState<PaginatedResponse<Sale>>`
-- [~] 7.4 Implement `customersSlice`
-- [~] 7.5 Implement `uiSlice` — manages `AppNotification[]` and `ModalState`
+- [x] 7.1 Implement `productsSlice` with state `AsyncState<PaginatedResponse<Product>>`
+- [x] 7.2 Implement `cartSlice` with actions: addItem, removeItem, updateQuantity, clear, hold
+- [x] 7.3 Implement `salesSlice` with state `AsyncState<PaginatedResponse<Sale>>`
+- [x] 7.4 Implement `customersSlice`
+- [x] 7.5 Implement `uiSlice` — manages `AppNotification[]` and `ModalState`
 
 ### Hooks
-- [~] 7.6 Implement `useProducts` — connects to `GetProductsUseCase`; exposes `products`, `loading`, `searchProducts`, `filters`, `setFilters`
-- [~] 7.7 Implement `useCart` — connects to cart use cases; exposes `cart`, `addItem`, `removeItem`, `updateQuantity`, `clearCart`
-- [~] 7.8 Implement `useSales` — connects to `ProcessSaleUseCase`; exposes `processSale`, `isProcessing`
-- [~] 7.9 Implement `useCustomers` — connects to customer management; exposes `selectedCustomer`, `selectCustomer`, `clearCustomer`
+- [x] 7.6 Implement `useProducts` — connects to `GetProductsUseCase`; exposes `products`, `loading`, `searchProducts`, `filters`, `setFilters`
+- [x] 7.7 Implement `useCart` — connects to cart use cases; exposes `cart`, `addItem`, `removeItem`, `updateQuantity`, `clearCart`
+- [x] 7.8 Implement `useSales` — connects to `ProcessSaleUseCase`; exposes `processSale`, `isProcessing`
+- [x] 7.9 Implement `useCustomers` — connects to customer management; exposes `selectedCustomer`, `selectCustomer`, `clearCustomer`
 
 ### UI Infrastructure
-- [~] 7.10 Implement global Error Boundary with fallback UI
-- [~] 7.11 Implement centralized notification system using `AppNotification`
+- [x] 7.10 Implement global Error Boundary with fallback UI
+- [x] 7.11 Implement centralized notification system using `AppNotification`
 - [~] 7.12 Configure Redux Persist for `cartSlice` and `uiSlice`
-- [~] 7.13 Implement optimized selectors with `reselect`
-- [~] 7.14 Configure lazy loading with `React.lazy` + code splitting by route
-- [~] 7.15 Implement protected routes: `ProtectedRoute` (authentication) and `AdminRoute` (ADMIN role)
+- [x] 7.13 Implement optimized selectors with `reselect`
+- [x] 7.14 Configure lazy loading with `React.lazy` + code splitting by route
+- [x] 7.15 Implement protected routes: `ProtectedRoute` (authentication) and `AdminRoute` (ADMIN role)
 
 ---
 
