@@ -89,33 +89,33 @@
 ## Phase 4 — Base UI Components
 
 ### Primitives
-- [~] 4.1 `Button` — variants: primary, secondary, ghost, danger; `loading` prop with integrated spinner
-- [~] 4.2 `Input` — error states, visual validation, accessible label
-- [~] 4.3 `Modal` — focus trap, `aria-modal`, backdrop with click-outside close
-- [~] 4.4 `Table` — sorting, pagination, filters, loading skeleton
-- [~] 4.5 `Card`
-- [~] 4.6 `Spinner`
-- [~] 4.7 `Toast` / `AppNotification` — **do not use the name `Notification`** (collides with the DOM API)
-- [~] 4.8 `Badge`
-- [~] 4.9 `ScrollArea`
-- [~] 4.10 `SearchInput` with configurable debounce
+- [x] 4.1 `Button` — variants: primary, secondary, ghost, danger; `loading` prop with integrated spinner
+- [x] 4.2 `Input` — error states, visual validation, accessible label
+- [x] 4.3 `Modal` — focus trap, `aria-modal`, backdrop with click-outside close
+- [x] 4.4 `Table` — sorting, pagination, filters, loading skeleton
+- [x] 4.5 `Card`
+- [x] 4.6 `Spinner`
+- [x] 4.7 `Toast` / `AppNotification` — **do not use the name `Notification`** (collides with the DOM API)
+- [x] 4.8 `Badge`
+- [x] 4.9 `ScrollArea`
+- [x] 4.10 `SearchInput` with configurable debounce
 
 ### Domain Components
-- [~] 4.11 `ProductCard` — uses `isProductAvailable()` and `getStockStatus()` as pure functions; button disabled when out of stock
-- [~] 4.12 `CartItemRow` — **different name** from the domain `CartItem` interface; includes `QuantityInput` and `QuantityDisplay`
-- [~] 4.13 `CustomerChip` — `onClear: () => void` prop separate from `onSelect`
-- [~] 4.14 `SaleReceipt`
-- [~] 4.15 `PaymentMethodSelector` — tabs for CASH, CARD, TRANSFER with a specific form per method
-- [~] 4.16 `StockIndicator` — differentiated colors for ok / low / out
-- [~] 4.17 `CategoryTag`
-- [~] 4.18 `ProductGridSkeleton` — loading skeleton for the product grid
-- [~] 4.19 `EmptyState` — generic component with icon, title, and description
+- [x] 4.11 `ProductCard` — uses `isProductAvailable()` and `getStockStatus()` as pure functions; button disabled when out of stock
+- [x] 4.12 `CartItemRow` — **different name** from the domain `CartItem` interface; includes `QuantityInput` and `QuantityDisplay`
+- [x] 4.13 `CustomerChip` — `onClear: () => void` prop separate from `onSelect`
+- [x] 4.14 `SaleReceipt`
+- [x] 4.15 `PaymentMethodSelector` — tabs for CASH, CARD, TRANSFER with a specific form per method
+- [x] 4.16 `StockIndicator` — differentiated colors for ok / low / out
+- [x] 4.17 `CategoryTag`
+- [x] 4.18 `ProductGridSkeleton` — loading skeleton for the product grid
+- [x] 4.19 `EmptyState` — generic component with icon, title, and description
 
 ### Layouts
-- [~] 4.20 `SalesLayout` — `2fr 1fr` grid for desktop, responsive for tablet and mobile
-- [~] 4.21 `AdminLayout` — tab navigation (Products, Customers, Sales, Reports)
-- [~] 4.22 `MainLayout` — header + sidebar + main content
-- [~] 4.23 Light/dark theme system with Tailwind
+- [x] 4.20 `SalesLayout` — `2fr 1fr` grid for desktop, responsive for tablet and mobile
+- [x] 4.21 `AdminLayout` — tab navigation (Products, Customers, Sales, Reports)
+- [x] 4.22 `MainLayout` — header + sidebar + main content
+- [x] 4.23 Light/dark theme system with Tailwind
 
 ---
 
