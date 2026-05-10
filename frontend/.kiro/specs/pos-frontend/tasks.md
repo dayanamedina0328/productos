@@ -39,11 +39,11 @@
 - [x] 2.3 Create `Customer` interface and `CustomerType` enum (REGULAR, VIP, CORPORATE)
 - [x] 2.4 Create `Cart` and `CartItem` interfaces
 - [x] 2.5 Create `Sale` and `SaleItem` interfaces, `PaymentMethod` enum (CASH, CARD, TRANSFER, MIXED) and `SaleStatus` enum (PENDING, COMPLETED, CANCELLED, REFUNDED)
-- [~] 2.6 Implement `ProductValidations.validatePrice()` — rejects price ≤ 0 or > 999 999
-- [~] 2.7 Implement `ProductValidations.validateStock()` — rejects negative stock or stock below `minStock`
-- [~] 2.8 Implement `CartValidations.validateAddItem()` — validates quantity > 0 and available stock
-- [~] 2.9 Implement pure function `isProductAvailable(product: Product): boolean`
-- [~] 2.10 Implement pure function `getStockStatus(stock, minStock): 'ok' | 'low' | 'out'`
+- [x] 2.6 Implement `ProductValidations.validatePrice()` — rejects price ≤ 0 or > 999 999
+- [x] 2.7 Implement `ProductValidations.validateStock()` — rejects negative stock or stock below `minStock`
+- [x] 2.8 Implement `CartValidations.validateAddItem()` — validates quantity > 0 and available stock
+- [x] 2.9 Implement pure function `isProductAvailable(product: Product): boolean`
+- [x] 2.10 Implement pure function `getStockStatus(stock, minStock): 'ok' | 'low' | 'out'`
 - [~] 2.11 Create `ProductRepository` interface (findAll, findById, save, update, delete)
 - [~] 2.12 Create `CartRepository` interface (findById, save, addItem, removeItem, clear)
 - [~] 2.13 Create `SaleRepository` interface (findAll, findById, save, cancel)
