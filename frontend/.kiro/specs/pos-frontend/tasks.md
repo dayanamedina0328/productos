@@ -49,8 +49,8 @@
 - [x] 2.13 Create `SaleRepository` interface (findAll, findById, save, cancel)
 - [x] 2.14 Create `CustomerRepository` interface (findAll, findById, save)
 - [x] 2.15 Create `PaymentGateway` interface with `process()` and `PaymentResult` type
-- [~] 2.16 Create value objects: `Money` (safe arithmetic), `SKU` (format validation), `Quantity` (limits)
-- [~] 2.17 Create domain events: `ProductAddedToCart`, `SaleCompleted`, `StockUpdated`
+- [x] 2.16 Create value objects: `Money` (safe arithmetic), `SKU` (format validation), `Quantity` (limits)
+- [x] 2.17 Create domain events: `ProductAddedToCart`, `SaleCompleted`, `StockUpdated`
 
 ---
 
