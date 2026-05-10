@@ -21,7 +21,8 @@ export interface ProductBrowserProps {
 export function ProductBrowser({ onAddToCart, searchInputRef, className }: ProductBrowserProps) {
   const { products, loading, error, searchProducts, load } = useProducts();
   const internalRef = useRef<HTMLInputElement>(null);
-  const ref = searchInputRef ?? internalRef;
+  // searchInputRef permite al padre enfocar el input (ej: atajo F2)
+  void (searchInputRef ?? internalRef);
 
   // Cargar productos al montar
   useEffect(() => {

@@ -91,7 +91,7 @@ export const applyCartDiscount = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      return await applyDiscountUseCase.execute(payload.cartId, payload.itemId, payload.discount);
+      return await applyDiscountUseCase.execute(payload.cartId, payload.discount);
     } catch (err) {
       return rejectWithValue(err instanceof Error ? err.message : 'Error al aplicar descuento');
     }

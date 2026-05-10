@@ -87,10 +87,10 @@ export function useCart() {
   }, []);
 
   const applyDiscount = useCallback(
-    async (cartId: string, itemId: string, discount: number) => {
+    async (cartId: string, _itemId: string, discount: number) => {
       setLoading();
       try {
-        const updated = await applyDiscountUseCase.execute(cartId, itemId, discount);
+        const updated = await applyDiscountUseCase.execute(cartId, discount);
         setCart(updated);
       } catch (err) {
         setError(err);

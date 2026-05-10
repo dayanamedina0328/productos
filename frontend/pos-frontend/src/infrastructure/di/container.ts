@@ -96,7 +96,7 @@ export const searchProductsUseCase = new SearchProductsUseCase(productRepository
 
 export const addProductToCartUseCase = new AddProductToCartUseCase(cartRepository, productRepository);
 export const removeFromCartUseCase = new RemoveFromCartUseCase(cartRepository);
-export const updateCartItemUseCase = new UpdateCartItemUseCase(cartRepository);
+export const updateCartItemUseCase = new UpdateCartItemUseCase(cartRepository, productRepository);
 export const clearCartUseCase = new ClearCartUseCase(cartRepository);
 export const applyDiscountUseCase = new ApplyDiscountUseCase(cartRepository);
 export const holdSaleUseCase = new HoldSaleUseCase(cartLocalStorage);

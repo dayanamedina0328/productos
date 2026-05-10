@@ -37,7 +37,20 @@ export const searchProducts = createAsyncThunk(
   'products/search',
   async (query: string, { rejectWithValue }) => {
     try {
-      return await searchProductsUseCase.execute(query);
+      const items = await searchProductsUseCase.execute(query);
+      // Envolver en PaginatedResponse para mantener el tipo del estado consistente
+      const result: PaginatedResponse<Product> = {
+        items,
+        pagination: {
+          page: 1,
+          pageSize: items.length,
+          totalItems: items.length,
+          totalPages: 1,
+          hasNext: false,
+          hasPrevious: false,
+        },
+      };
+      return result;
     } catch (err) {
       return rejectWithValue(err instanceof Error ? err.message : 'Error al buscar productos');
     }

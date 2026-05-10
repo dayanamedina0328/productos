@@ -46,7 +46,19 @@ export function useProducts(initialFilters: ProductFilters = {}) {
     async (query: string) => {
       setState((prev) => ({ ...prev, loading: true, error: null }));
       try {
-        const result = await searchProductsUseCase.execute(query);
+        const items = await searchProductsUseCase.execute(query);
+        // Envolver el resultado en PaginatedResponse para mantener el tipo consistente
+        const result: PaginatedResponse<Product> = {
+          items,
+          pagination: {
+            page: 1,
+            pageSize: items.length,
+            totalItems: items.length,
+            totalPages: 1,
+            hasNext: false,
+            hasPrevious: false,
+          },
+        };
         setState((prev) => ({ ...prev, products: result, loading: false }));
       } catch (err) {
         const message = err instanceof Error ? err.message : 'Error al buscar productos';

@@ -225,8 +225,8 @@
 ## Phase 9 — Production and Deploy
 
 ### Build
-- [~] 9.1 Optimize Vite configuration for production (minification, tree-shaking, chunks)
-- [~] 9.2 Configure environment variables: `.env.development` and `.env.production`
+- [x] 9.1 Optimize Vite configuration for production (minification, tree-shaking, chunks)
+- [x] 9.2 Configure environment variables: `.env.development` and `.env.production`
 - [~] 9.3 Analyze bundle with `vite-bundle-visualizer` and optimize large chunks
 - [~] 9.4 Configure PWA: service worker + manifest (basic offline)
 
@@ -236,7 +236,7 @@
 - [~] 9.7 Configure automatic rollback on pipeline failure
 
 ### Documentation
-- [~] 9.8 Write README with setup instructions, environment variables, and available commands
+- [x] 9.8 Write README with setup instructions, environment variables, and available commands
 - [~] 9.9 Write architecture and project conventions guide
 - [~] 9.10 Write user manual for POS operators (cashier and administrator)
 
