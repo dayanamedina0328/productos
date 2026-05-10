@@ -156,22 +156,22 @@
 ## Phase 6 — Pages and Domain Components
 
 ### Sales Terminal
-- [~] 6.1 Implement `SalesPage` — orchestrates `ProductBrowser`, `CartPanel`, and `CheckoutModal`; `handleCheckout(paymentMethod, paymentDetails)` typed
-- [~] 6.2 Implement `ProductBrowser` — search with 300 ms debounce, category filters, grid/list toggle
-- [~] 6.3 Implement `CartPanel` — `onCustomerSelect` and `onCustomerClear` props separate; shows subtotal, VAT, and total in real time
-- [~] 6.4 Implement `CheckoutModal` — `onComplete(method, details)` receives both parameters; shows order summary
-- [~] 6.5 Implement `CustomerSelectorModal` — customer search and selection
-- [~] 6.6 Implement `useKeyboardShortcuts` — Ctrl+K, Ctrl+Enter, F2, F3, Escape, +/-, Delete
+- [x] 6.1 Implement `SalesPage` — orchestrates `ProductBrowser`, `CartPanel`, and `CheckoutModal`; `handleCheckout(paymentMethod, paymentDetails)` typed
+- [x] 6.2 Implement `ProductBrowser` — search with 300 ms debounce, category filters, grid/list toggle
+- [x] 6.3 Implement `CartPanel` — `onCustomerSelect` and `onCustomerClear` props separate; shows subtotal, VAT, and total in real time
+- [x] 6.4 Implement `CheckoutModal` — `onComplete(method, details)` receives both parameters; shows order summary
+- [x] 6.5 Implement `CustomerSelectorModal` — customer search and selection
+- [x] 6.6 Implement `useKeyboardShortcuts` — Ctrl+K, Ctrl+Enter, F2, F3, Escape, +/-, Delete
 
 ### Administration
-- [~] 6.7 Implement `AdminPage` with `TabNavigation` (Products, Customers, Sales, Reports)
-- [~] 6.8 Implement `ProductManagement` — full CRUD with paginated table
-- [~] 6.9 Implement `ProductForm` — real-time validations with React Hook Form + Yup
-- [~] 6.10 Implement `ProductTable` — sorting, filters, pagination, low-stock indicator
-- [~] 6.11 Implement `CustomerManagement`
-- [~] 6.12 Implement `CustomerForm` — unique NIT validation
-- [~] 6.13 Implement `SalesHistory` — filters by date, customer, payment method, and status
-- [~] 6.14 Implement `ReportsDashboard` — daily/weekly/monthly metrics with charts
+- [x] 6.7 Implement `AdminPage` with `TabNavigation` (Products, Customers, Sales, Reports)
+- [x] 6.8 Implement `ProductManagement` — full CRUD with paginated table
+- [x] 6.9 Implement `ProductForm` — real-time validations with React Hook Form + Yup
+- [x] 6.10 Implement `ProductTable` — sorting, filters, pagination, low-stock indicator
+- [x] 6.11 Implement `CustomerManagement`
+- [x] 6.12 Implement `CustomerForm` — unique NIT validation
+- [x] 6.13 Implement `SalesHistory` — filters by date, customer, payment method, and status
+- [x] 6.14 Implement `ReportsDashboard` — daily/weekly/monthly metrics with charts
 
 ---
 
