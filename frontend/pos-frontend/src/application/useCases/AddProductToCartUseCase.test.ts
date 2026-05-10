@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest';
 import { AddProductToCartUseCase } from './AddProductToCartUseCase';
-import type { CartRepository, AddToCartRequest } from '../../domain/ports/CartRepository';
+import type { CartRepository } from '../../domain/ports/CartRepository';
 import type { ProductRepository } from '../../domain/ports/ProductRepository';
 import type { Cart } from '../../domain/entities/Cart';
 import type { Product } from '../../domain/entities/Product';

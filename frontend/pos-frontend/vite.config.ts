@@ -2,6 +2,8 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
+import { visualizer } from 'rollup-plugin-visualizer';
+import { VitePWA } from 'vite-plugin-pwa';
 import path from 'path';
 
 // https://vite.dev/config/
@@ -9,6 +11,59 @@ export default defineConfig({
   plugins: [
     react(),
     tailwindcss(),
+    // Genera stats.html con el análisis del bundle (tarea 9.3)
+    // Solo se activa cuando ANALYZE=true para no ralentizar builds normales
+    ...(process.env.ANALYZE === 'true'
+      ? [
+          visualizer({
+            filename: 'dist/stats.html',
+            open: false,
+            gzipSize: true,
+            brotliSize: true,
+            template: 'treemap',
+          }),
+        ]
+      : []),
+    // PWA: service worker + manifest (tarea 9.4)
+    VitePWA({
+      registerType: 'autoUpdate',
+      includeAssets: ['favicon.svg', 'icons.svg'],
+      manifest: {
+        name: 'POS Frontend',
+        short_name: 'POS',
+        description: 'Sistema de Punto de Venta',
+        theme_color: '#2563eb',
+        background_color: '#ffffff',
+        display: 'standalone',
+        start_url: '/sales',
+        icons: [
+          {
+            src: '/favicon.svg',
+            sizes: 'any',
+            type: 'image/svg+xml',
+            purpose: 'any maskable',
+          },
+        ],
+      },
+      workbox: {
+        // Cachear assets estáticos (JS, CSS, imágenes)
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
+        // Estrategia network-first para la API
+        runtimeCaching: [
+          {
+            urlPattern: /^https?:\/\/.*\/api\/.*/i,
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'api-cache',
+              expiration: {
+                maxEntries: 50,
+                maxAgeSeconds: 5 * 60, // 5 minutos
+              },
+            },
+          },
+        ],
+      },
+    }),
   ],
 
   resolve: {

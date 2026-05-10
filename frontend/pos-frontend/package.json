@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "analyze": "ANALYZE=true tsc -b && ANALYZE=true vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "format": "prettier --write src/**/*.{ts,tsx,css}",
@@ -46,9 +47,11 @@
     "globals": "^17.5.0",
     "jsdom": "^29.1.1",
     "prettier": "^3.8.3",
+    "rollup-plugin-visualizer": "^5.14.0",
     "typescript": "~6.0.2",
     "typescript-eslint": "^8.58.2",
     "vite": "^8.0.10",
+    "vite-plugin-pwa": "^0.21.2",
     "vitest": "^4.1.5"
   }
 }
