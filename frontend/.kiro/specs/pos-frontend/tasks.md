@@ -203,16 +203,16 @@
 ## Phase 8 — Testing
 
 ### Unit Tests (Vitest)
-- [~] 8.1 Tests for domain entities and validations (`ProductValidations`, `CartValidations`)
-- [~] 8.2 Tests for use cases with repository mocks (all use cases from phases 3.1–3.20)
-- [~] 8.3 Tests for adapters with HTTP/storage mocks
-- [~] 8.4 Tests for mappers
+- [x] 8.1 Tests for domain entities and validations (`ProductValidations`, `CartValidations`)
+- [x] 8.2 Tests for use cases with repository mocks (all use cases from phases 3.1–3.20)
+- [x] 8.3 Tests for adapters with HTTP/storage mocks
+- [x] 8.4 Tests for mappers
 - [~] 8.5 Verify coverage ≥ 80 % overall and ≥ 90 % in the `domain` layer
 
 ### Integration Tests (Testing Library)
-- [~] 8.6 Test for the complete sale flow (search → add → checkout → complete)
-- [~] 8.7 Test for error handling and recovery (insufficient stock, network error)
-- [~] 8.8 Test for cart persistence in localStorage
+- [x] 8.6 Test for the complete sale flow (search → add → checkout → complete)
+- [x] 8.7 Test for error handling and recovery (insufficient stock, network error)
+- [x] 8.8 Test for cart persistence in localStorage
 
 ### E2E Tests (Playwright)
 - [~] 8.9 Test for login and navigation between routes
