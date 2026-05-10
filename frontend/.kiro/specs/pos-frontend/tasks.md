@@ -207,7 +207,7 @@
 - [x] 8.2 Tests for use cases with repository mocks (all use cases from phases 3.1–3.20)
 - [x] 8.3 Tests for adapters with HTTP/storage mocks
 - [x] 8.4 Tests for mappers
-- [~] 8.5 Verify coverage ≥ 80 % overall and ≥ 90 % in the `domain` layer
+- [x] 8.5 Verify coverage ≥ 80 % overall and ≥ 90 % in the `domain` layer
 
 ### Integration Tests (Testing Library)
 - [x] 8.6 Test for the complete sale flow (search → add → checkout → complete)

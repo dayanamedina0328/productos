@@ -43,4 +43,22 @@ describe('Modal', () => {
     const dialog = screen.getByRole('dialog');
     expect(dialog).toHaveAttribute('aria-labelledby', 'modal-title');
   });
+
+  it('no cierra al hacer clic en el backdrop cuando disableBackdropClose=true', async () => {
+    const onClose = vi.fn();
+    render(
+      <Modal isOpen={true} onClose={onClose} title="Test" disableBackdropClose>
+        <p>X</p>
+      </Modal>
+    );
+    // El backdrop tiene aria-hidden="true", hacemos clic en el área fuera del dialog
+    const backdrop = document.querySelector('[aria-hidden="true"]') as HTMLElement;
+    if (backdrop) await userEvent.click(backdrop);
+    expect(onClose).not.toHaveBeenCalled();
+  });
+
+  it('renderiza con tamaño lg', () => {
+    render(<Modal isOpen={true} onClose={vi.fn()} title="Test" size="lg"><p>X</p></Modal>);
+    expect(screen.getByRole('dialog')).toHaveClass('max-w-lg');
+  });
 });
