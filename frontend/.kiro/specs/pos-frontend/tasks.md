@@ -122,34 +122,34 @@
 ## Phase 5 — Adapters
 
 ### API (Axios)
-- [~] 5.1 Configure Axios base instance with `baseURL`, headers, and timeout
-- [~] 5.2 Implement authentication interceptor (attaches JWT to each request)
-- [~] 5.3 Implement logging interceptor and global HTTP error handling
-- [~] 5.4 Implement retry with exponential backoff for 5xx errors
-- [~] 5.5 Implement `ProductAPIAdapter` (implements `ProductRepository`)
-- [~] 5.6 Implement `SaleAPIAdapter` (implements `SaleRepository`)
-- [~] 5.7 Implement `CustomerAPIAdapter` (implements `CustomerRepository`)
-- [~] 5.8 Implement `CartAPIAdapter` (implements `CartRepository`)
+- [x] 5.1 Configure Axios base instance with `baseURL`, headers, and timeout
+- [x] 5.2 Implement authentication interceptor (attaches JWT to each request)
+- [x] 5.3 Implement logging interceptor and global HTTP error handling
+- [x] 5.4 Implement retry with exponential backoff for 5xx errors
+- [x] 5.5 Implement `ProductAPIAdapter` (implements `ProductRepository`)
+- [x] 5.6 Implement `SaleAPIAdapter` (implements `SaleRepository`)
+- [x] 5.7 Implement `CustomerAPIAdapter` (implements `CustomerRepository`)
+- [x] 5.8 Implement `CartAPIAdapter` (implements `CartRepository`)
 
 ### Storage
-- [~] 5.9 Implement `CartLocalStorageAdapter` — persists the active cart between reloads
-- [~] 5.10 Implement `ProductIndexedDBAdapter` — offline catalog cache
-- [~] 5.11 Implement `CacheManager` with configurable expiration policies
+- [x] 5.9 Implement `CartLocalStorageAdapter` — persists the active cart between reloads
+- [x] 5.10 Implement `ProductIndexedDBAdapter` — offline catalog cache
+- [x] 5.11 Implement `CacheManager` with configurable expiration policies
 
 ### Payments
-- [~] 5.12 Implement `CashPaymentGateway` — calculates change to return
-- [~] 5.13 Implement `CardPaymentGateway` — card data tokenization
-- [~] 5.14 Implement `TransferPaymentGateway` — voucher reference
-- [~] 5.15 Implement `MixedPaymentGateway` — combines multiple methods
+- [x] 5.12 Implement `CashPaymentGateway` — calculates change to return
+- [x] 5.13 Implement `CardPaymentGateway` — card data tokenization
+- [x] 5.14 Implement `TransferPaymentGateway` — voucher reference
+- [x] 5.15 Implement `MixedPaymentGateway` — combines multiple methods
 
 ### Mappers
-- [~] 5.16 Implement `ProductMapper` (API response ↔ domain)
-- [~] 5.17 Implement `SaleMapper`
-- [~] 5.18 Implement `CustomerMapper`
-- [~] 5.19 Implement `CartMapper`
+- [x] 5.16 Implement `ProductMapper` (API response ↔ domain)
+- [x] 5.17 Implement `SaleMapper`
+- [x] 5.18 Implement `CustomerMapper`
+- [x] 5.19 Implement `CartMapper`
 
 ### DI Container
-- [~] 5.20 Implement `infrastructure/di/container.ts` — instantiates all use cases with their adapters
+- [x] 5.20 Implement `infrastructure/di/container.ts` — instantiates all use cases with their adapters
 
 ---
 
