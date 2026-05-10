@@ -72,17 +72,17 @@
 - [x] 3.11 Implement `HoldSaleUseCase` — saves a pending sale to resume later
 
 ### Sales
-- [~] 3.12 Implement `ProcessSaleUseCase` — requires `paymentMethod` and `paymentDetails`; generates invoice and decrements stock
-- [~] 3.13 Implement `CancelSaleUseCase` — reverts the stock of the involved products
-- [~] 3.14 Implement `RefundSaleUseCase`
-- [~] 3.15 Implement `GetSalesHistoryUseCase` — returns `PaginatedResponse<Sale>` with filters
-- [~] 3.16 Implement `GenerateInvoiceUseCase`
+- [x] 3.12 Implement `ProcessSaleUseCase` — requires `paymentMethod` and `paymentDetails`; generates invoice and decrements stock
+- [x] 3.13 Implement `CancelSaleUseCase` — reverts the stock of the involved products
+- [x] 3.14 Implement `RefundSaleUseCase`
+- [x] 3.15 Implement `GetSalesHistoryUseCase` — returns `PaginatedResponse<Sale>` with filters
+- [x] 3.16 Implement `GenerateInvoiceUseCase`
 
 ### Customers
-- [~] 3.17 Implement `GetCustomersUseCase` — returns `PaginatedResponse<Customer>`
-- [~] 3.18 Implement `CreateCustomerUseCase` — validates NIT uniqueness
-- [~] 3.19 Implement `UpdateCustomerUseCase`
-- [~] 3.20 Implement `SearchCustomersUseCase` — search by name or NIT
+- [x] 3.17 Implement `GetCustomersUseCase` — returns `PaginatedResponse<Customer>`
+- [x] 3.18 Implement `CreateCustomerUseCase` — validates NIT uniqueness
+- [x] 3.19 Implement `UpdateCustomerUseCase`
+- [x] 3.20 Implement `SearchCustomersUseCase` — search by name or NIT
 
 ---
 
