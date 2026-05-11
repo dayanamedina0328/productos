@@ -245,24 +245,24 @@
 ## Final Quality Checklist
 
 ### Code
-- [~] No TypeScript errors (`strict: true`)
-- [~] No ESLint warnings
-- [~] Coverage ≥ 80 % overall, ≥ 90 % in domain
+- [x] No TypeScript errors (`strict: true`)
+- [x] No ESLint warnings
+- [x] Coverage ≥ 80 % overall, ≥ 90 % in domain
 
 ### Architecture
-- [~] `Product` and other entities are pure interfaces (no instance methods)
-- [~] Validations are pure functions or classes with static methods
-- [~] `CartItemRow` does not collide with the domain `CartItem` interface
-- [~] `AppNotification` does not collide with the DOM `Notification`
-- [~] No circular dependencies between modules
-- [~] `container.ts` is the only place where `new` is used to instantiate dependencies
+- [x] `Product` and other entities are pure interfaces (no instance methods)
+- [x] Validations are pure functions or classes with static methods
+- [x] `CartItemRow` does not collide with the domain `CartItem` interface
+- [x] `AppNotification` does not collide with the DOM `Notification`
+- [x] No circular dependencies between modules
+- [x] `container.ts` is the only place where `new` is used to instantiate dependencies
 
 ### Performance
-- [~] First Contentful Paint < 3 s
-- [~] Frequent interactions < 100 ms
+- [x] First Contentful Paint < 3 s
+- [x] Frequent interactions < 100 ms
 - [~] Virtual scrolling in lists with more than 100 items
 
 ### Accessibility
-- [~] WCAG 2.1 AA verified with automated tools
-- [~] Full keyboard navigation on all screens
-- [~] `aria-*` attributes on modals and interactive controls
+- [x] WCAG 2.1 AA verified with automated tools
+- [x] Full keyboard navigation on all screens
+- [x] `aria-*` attributes on modals and interactive controls
