@@ -24,7 +24,7 @@ const SalesPage = () => {
   const [notifications, setNotifications] = useState<AppNotificationItem[]>([]);
   const searchInputRef = useRef<HTMLInputElement>(null);
 
-  const { cart, loading: cartLoading, addItem, removeItem, updateQuantity, clearCart, holdSale, setCart } = useCart();
+  const { cart, loading: cartLoading, addItem, removeItem, updateQuantity, clearCart, holdSale } = useCart();
   const { selectedCustomer, selectCustomer, clearCustomer } = useCustomers();
   const { processSale, isProcessing } = useSales();
 
@@ -115,7 +115,7 @@ const SalesPage = () => {
         notify({ type: 'error', title: 'Error al procesar pago', message: err instanceof Error ? err.message : '' });
       }
     },
-    [cart, processSale, selectedCustomer?.id, setCart, notify]
+    [cart, processSale, selectedCustomer?.id, notify]
   );
 
   // Atajos de teclado

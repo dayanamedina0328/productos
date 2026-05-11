@@ -35,12 +35,14 @@ apiClient.interceptors.request.use(
 apiClient.interceptors.response.use(
   (response) => {
     if (import.meta.env.DEV) {
+      // eslint-disable-next-line no-console
       console.debug(`[API] ${response.config.method?.toUpperCase()} ${response.config.url} → ${response.status}`);
     }
     return response;
   },
   (error: AxiosError) => {
     if (import.meta.env.DEV) {
+      // eslint-disable-next-line no-console
       console.error(`[API Error] ${error.config?.method?.toUpperCase()} ${error.config?.url} → ${error.response?.status}`, error.message);
     }
 
