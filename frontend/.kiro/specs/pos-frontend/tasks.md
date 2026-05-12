@@ -260,7 +260,7 @@
 ### Performance
 - [x] First Contentful Paint < 3 s
 - [x] Frequent interactions < 100 ms
-- [~] Virtual scrolling in lists with more than 100 items
+- [x] Virtual scrolling in lists with more than 100 items
 
 ### Accessibility
 - [x] WCAG 2.1 AA verified with automated tools
