@@ -42,3 +42,6 @@ export type { MainLayoutProps } from './MainLayout';
 
 export { ThemeProvider, ThemeToggle, useTheme } from './ThemeProvider';
 export type { Theme } from './ThemeProvider';
+
+export { VirtualList } from './VirtualList';
+export type { VirtualListProps } from './VirtualList';

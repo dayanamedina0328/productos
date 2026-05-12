@@ -215,10 +215,10 @@
 - [x] 8.8 Test for cart persistence in localStorage
 
 ### E2E Tests (Playwright)
-- [~] 8.9 Test for login and navigation between routes
-- [~] 8.10 Test for the sale process with each payment method (cash, card, transfer)
-- [~] 8.11 Test for product CRUD in the admin panel
-- [~] 8.12 Accessibility test (WCAG 2.1 AA) with axe-playwright
+- [x] 8.9 Test for login and navigation between routes
+- [x] 8.10 Test for the sale process with each payment method (cash, card, transfer)
+- [x] 8.11 Test for product CRUD in the admin panel
+- [x] 8.12 Accessibility test (WCAG 2.1 AA) with axe-playwright
 
 ---
 
