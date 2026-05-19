@@ -10,9 +10,9 @@ import java.util.Objects;
  */
 public record Money(BigDecimal amount) {
 
-    public static final Money ZERO = new Money(BigDecimal.ZERO);
     private static final int SCALE = 2;
     private static final RoundingMode ROUNDING = RoundingMode.HALF_UP;
+    public static final Money ZERO = new Money(BigDecimal.ZERO);
 
     public Money {
         Objects.requireNonNull(amount, "Amount cannot be null");

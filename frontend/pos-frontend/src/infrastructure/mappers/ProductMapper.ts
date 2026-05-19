@@ -12,7 +12,7 @@ export interface ProductApiResponse {
   stock: number | string;
   min_stock?: number | string;
   minStock?: number | string;
-  category: {
+  category?: {
     id: string;
     name: string;
     description?: string;
@@ -22,10 +22,14 @@ export interface ProductApiResponse {
     is_active?: boolean;
     isActive?: boolean;
   };
+  categoryId?: string;
+  categoryName?: string;
   image_url?: string;
   imageUrl?: string;
   is_active?: boolean;
   isActive?: boolean;
+  active?: boolean;
+  lowStock?: boolean;
   created_at?: string;
   createdAt?: string;
   updated_at?: string;
@@ -37,13 +41,28 @@ export interface ProductApiResponse {
  */
 export class ProductMapper {
   static toDomain(raw: ProductApiResponse): Product {
-    const category: Category = {
+    // Manejar ambos formatos de categoría: objeto anidado o campos planos
+    const category: Category = raw.category ? {
       id: raw.category.id,
       name: raw.category.name,
       description: raw.category.description,
       parentId: raw.category.parentId ?? raw.category.parent_id,
       level: raw.category.level ?? 1,
       isActive: raw.category.isActive ?? raw.category.is_active ?? true,
+    } : raw.categoryId ? {
+      id: raw.categoryId,
+      name: raw.categoryName ?? 'Sin categoría',
+      description: undefined,
+      parentId: null,
+      level: 1,
+      isActive: true,
+    } : {
+      id: 'cat-general',
+      name: 'General',
+      description: 'Categoría por defecto',
+      parentId: null,
+      level: 1,
+      isActive: true,
     };
 
     return {
@@ -57,13 +76,15 @@ export class ProductMapper {
       minStock: Number(raw.minStock ?? raw.min_stock ?? 0),
       category,
       imageUrl: raw.imageUrl ?? raw.image_url,
-      isActive: raw.isActive ?? raw.is_active ?? true,
+      isActive: raw.isActive ?? raw.is_active ?? raw.active ?? true,
       createdAt: new Date(raw.createdAt ?? raw.created_at ?? Date.now()),
       updatedAt: new Date(raw.updatedAt ?? raw.updated_at ?? Date.now()),
     };
   }
 
   static toDomainList(rawList: ProductApiResponse[]): Product[] {
-    return rawList.map(ProductMapper.toDomain);
+    return rawList
+      .filter(item => item != null && item.id != null)
+      .map(ProductMapper.toDomain);
   }
 }

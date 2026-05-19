@@ -4,5 +4,5 @@ import com.pos.backend.application.dto.request.CreateCategoryRequest;
 import com.pos.backend.application.dto.response.CategoryResponse;
 
 public interface CreateCategoryUseCase {
-    CategoryResponse execute(CreateCategoryRequest request);
+    CategoryResponse createCategory(CreateCategoryRequest request);
 }

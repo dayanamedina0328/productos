@@ -146,9 +146,12 @@ export function CartPanel({
           variant="primary"
           size="lg"
           disabled={!hasItems || loading}
-          onClick={onCheckout}
+          onClick={() => {
+            console.log('Cobrar button clicked', { hasItems, cart, loading });
+            onCheckout();
+          }}
           className="w-full"
-          aria-label="Proceder al pago (Ctrl+Enter)"
+          aria-label="Proceder al pago (F5 o Ctrl+Enter)"
         >
           Cobrar ${cart?.total.toFixed(2) ?? '0.00'}
         </Button>

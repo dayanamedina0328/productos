@@ -27,14 +27,14 @@ This document outlines the implementation plan for the **POS Backend API**, a RE
 
 ### Phase 1: Project Configuration (2 days)
 
-- [ ] 1. Initialize project with Spring Initializr
+- [x] 1. Initialize project with Spring Initializr
   - Create Maven project with Java 21 and Spring Boot 3.x
   - Add dependencies: Spring Web, Spring Data JPA, Spring Security, PostgreSQL Driver, Validation, Lombok, Flyway, SpringDoc OpenAPI
   - Configure pom.xml with all required dependencies including JWT (jjwt-api, jjwt-impl) and Testcontainers
   - _Requirements: REQ-24, REQ-25_
   - _Estimated: 4 hours_
 
-- [ ] 1.1 Configure application.yml for development and production
+- [x] 1.1 Configure application.yml for development and production
   - Set up database connection properties
   - Configure JPA/Hibernate settings
   - Set up logging levels
@@ -42,26 +42,26 @@ This document outlines the implementation plan for the **POS Backend API**, a RE
   - _Requirements: REQ-25_
   - _Estimated: 2 hours_
 
-- [ ] 1.2 Configure Docker Compose for local PostgreSQL
+- [x] 1.2 Configure Docker Compose for local PostgreSQL
   - Create docker-compose.yml with PostgreSQL service
   - Configure environment variables for database
   - Set up volume persistence
   - _Requirements: REQ-25_
   - _Estimated: 1 hour_
 
-- [ ] 1.3 Create initial Flyway migration (V1__init.sql)
+- [x] 1.3 Create initial Flyway migration (V1__init.sql)
   - Create schema for categories, products, customers, users, sales, sale_items, invoice_sequences tables
   - Define all constraints (primary keys, foreign keys, unique constraints, check constraints)
   - _Requirements: REQ-25_
   - _Estimated: 3 hours_
 
-- [ ] 1.4 Create index migration (V2__indexes.sql)
+- [x] 1.4 Create index migration (V2__indexes.sql)
   - Add indexes for frequently queried columns
   - Create composite indexes for common filter patterns
   - _Requirements: REQ-25_
   - _Estimated: 1 hour_
 
-- [ ] 1.5 Create seed data migration (V3__seed_data.sql)
+- [x] 1.5 Create seed data migration (V3__seed_data.sql)
   - Insert initial categories (Electronics, Clothing, Food, etc.)
   - Create default admin user with bcrypt password
   - _Requirements: REQ-25_
@@ -71,13 +71,13 @@ This document outlines the implementation plan for the **POS Backend API**, a RE
 
 ### Phase 2: Domain Layer (3 days)
 
-- [ ] 2. Create domain entities with business logic
+- [x] 2. Create domain entities with business logic
   - Pure Java classes with NO Spring/JPA annotations
   - Factory methods for entity creation
   - Encapsulated business logic
   - _Requirements: REQ-1, REQ-5, REQ-7, REQ-10_
 
-- [ ] 2.1 Implement Product entity
+- [x] 2.1 Implement Product entity
   - Factory method `create()` with validation
   - Methods: `isAvailable()`, `isLowStock()`, `decreaseStock()`, `increaseStock()`, `getProfitMargin()`, `activate()`, `deactivate()`
   - Validate price > 0 and stock >= 0
@@ -90,7 +90,7 @@ This document outlines the implementation plan for the **POS Backend API**, a RE
   - **Validates: Requirements REQ-1.3, REQ-1.4, REQ-3.4, REQ-14.1, REQ-23.2**
   - _Estimated: 2 hours_
 
-- [ ] 2.3 Implement Cart and CartItem entities
+- [x] 2.3 Implement Cart and CartItem entities
   - Methods: `addItem()`, `removeItem()`, `getSubtotal()`, `getTax()`, `getTotal()`, `clear()`
   - Stock validation on add (throw InsufficientStockException)
   - Handle existing item quantity increase
@@ -105,7 +105,7 @@ This document outlines the implementation plan for the **POS Backend API**, a RE
   - **Validates: Requirements REQ-7.2, REQ-8.1, REQ-8.2, REQ-16.2**
   - _Estimated: 2 hours_
 
-- [ ] 2.5 Implement Sale and SaleItem entities
+- [x] 2.5 Implement Sale and SaleItem entities
   - Factory method `Sale.from(Cart, ...)` for creating sale from cart
   - Method: `cancel()` with state validation
   - Method: `getStockReversals()` for cancellation
@@ -118,7 +118,7 @@ This document outlines the implementation plan for the **POS Backend API**, a RE
   - **Validates: Requirements REQ-11.1, REQ-11.5, REQ-10.5, REQ-16.1**
   - _Estimated: 2 hours_
 
-- [ ] 2.7 Implement Customer entity
+- [x] 2.7 Implement Customer entity
   - Factory method `create()` with NIT validation
   - Credit limit validation based on customer type
   - REGULAR customers cannot have credit_limit
@@ -131,117 +131,117 @@ This document outlines the implementation plan for the **POS Backend API**, a RE
   - **Validates: Requirements REQ-5.2, REQ-5.7, REQ-5.8, REQ-5.9**
   - _Estimated: 1 hour_
 
-- [ ] 2.9 Implement Category entity
+- [x] 2.9 Implement Category entity
   - Hierarchical structure with parent/children
   - Methods: `hasChildren()`, `isRoot()`
   - Level calculation based on parent
   - _Requirements: REQ-22_
   - _Estimated: 2 hours_
 
-- [ ] 3. Create domain value objects
+- [x] 3. Create domain value objects
   - Immutable objects for domain concepts
   - Validation in constructors
   - _Requirements: REQ-1, REQ-13_
 
-- [ ] 3.1 Implement Money value object
+- [x] 3.1 Implement Money value object
   - Record with BigDecimal amount
   - Methods: `add()`, `subtract()`, `multiply()`, `percentage()`
   - Always 2 decimal places, non-negative
   - _Requirements: REQ-16_
   - _Estimated: 1 hour_
 
-- [ ] 3.2 Implement InvoiceNumber value object
+- [x] 3.2 Implement InvoiceNumber value object
   - Format validation: `INV-{YYYYMMDD}-{SEQUENCE}`
   - Factory method `generate(LocalDate, sequence)`
   - _Requirements: REQ-13_
   - _Estimated: 1 hour_
 
-- [ ] 3.3 Implement Sku value object
+- [x] 3.3 Implement Sku value object
   - Max 50 characters validation
   - Alphanumeric format validation
   - _Requirements: REQ-1_
   - _Estimated: 30 minutes_
 
-- [ ] 4. Create domain ports (output interfaces)
+- [x] 4. Create domain ports (output interfaces)
   - Interfaces defined in domain layer
   - No infrastructure dependencies
   - _Requirements: REQ-21_
 
-- [ ] 4.1 Implement ProductRepository port
+- [x] 4.1 Implement ProductRepository port
   - Methods: `findAll()`, `findById()`, `findBySku()`, `save()`, `deleteById()`, `existsBySku()`, `findLowStockProducts()`
   - _Requirements: REQ-1, REQ-2, REQ-3, REQ-4, REQ-15_
   - _Estimated: 1 hour_
 
-- [ ] 4.2 Implement SaleRepository port
+- [x] 4.2 Implement SaleRepository port
   - Methods: `findAll()`, `findById()`, `findByInvoiceNumber()`, `save()`, `getNextInvoiceSequence()`
   - _Requirements: REQ-10, REQ-12, REQ-13_
   - _Estimated: 1 hour_
 
-- [ ] 4.3 Implement CartRepository port
+- [x] 4.3 Implement CartRepository port
   - Methods: `findById()`, `save()`, `deleteById()`
   - _Requirements: REQ-7, REQ-8, REQ-9_
   - _Estimated: 30 minutes_
 
-- [ ] 4.4 Implement CustomerRepository port
+- [x] 4.4 Implement CustomerRepository port
   - Methods: `findAll()`, `findById()`, `findByNit()`, `save()`, `existsByNit()`
   - _Requirements: REQ-5, REQ-6_
   - _Estimated: 30 minutes_
 
-- [ ] 4.5 Implement CategoryRepository port
+- [x] 4.5 Implement CategoryRepository port
   - Methods: `findById()`, `findAll()`, `save()`, `deleteById()`, `hasProducts()`
   - _Requirements: REQ-22_
   - _Estimated: 30 minutes_
 
-- [ ] 4.6 Implement PaymentGateway port
+- [x] 4.6 Implement PaymentGateway port
   - Methods: `process(amount, details)`, `getSupportedMethod()`
   - Returns PaymentResult record
   - _Requirements: REQ-21_
   - _Estimated: 30 minutes_
 
-- [ ] 5. Create domain enums
+- [x] 5. Create domain enums
   - Pure Java enums with no dependencies
   - _Estimated: 30 minutes_
 
-- [ ] 5.1 Implement PaymentMethod enum
+- [x] 5.1 Implement PaymentMethod enum
   - Values: CASH, CARD, TRANSFER, MIXED
   - _Requirements: REQ-10, REQ-21_
   - _Estimated: 10 minutes_
 
-- [ ] 5.2 Implement SaleStatus enum
+- [x] 5.2 Implement SaleStatus enum
   - Values: PENDING, COMPLETED, CANCELLED, REFUNDED
   - _Requirements: REQ-10, REQ-11_
   - _Estimated: 10 minutes_
 
-- [ ] 5.3 Implement CustomerType enum
+- [x] 5.3 Implement CustomerType enum
   - Values: REGULAR, VIP, CORPORATE
   - _Requirements: REQ-5_
   - _Estimated: 10 minutes_
 
-- [ ] 6. Create domain exceptions
+- [x] 6. Create domain exceptions
   - Extend DomainException base class
   - Descriptive messages for debugging
   - _Estimated: 1 hour_
 
-- [ ] 6.1 Implement entity not found exceptions
+- [x] 6.1 Implement entity not found exceptions
   - ProductNotFoundException, CustomerNotFoundException, CartNotFoundException, SaleNotFoundException, CategoryNotFoundException
   - _Requirements: REQ-2, REQ-6, REQ-8, REQ-10, REQ-22_
   - _Estimated: 30 minutes_
 
-- [ ] 6.2 Implement business rule violation exceptions
+- [x] 6.2 Implement business rule violation exceptions
   - InsufficientStockException, DuplicateSkuException, DuplicateNitException, SaleAlreadyCancelledException, InvalidSaleStatusForCancellationException, ProductNotAvailableException, PaymentFailedException
   - _Requirements: REQ-1, REQ-5, REQ-8, REQ-11, REQ-21_
   - _Estimated: 30 minutes_
 
-- [ ] 7. Create domain events
+- [x] 7. Create domain events
   - Records implementing DomainEvent interface
   - _Estimated: 30 minutes_
 
-- [ ] 7.1 Implement SaleCompletedEvent
+- [x] 7.1 Implement SaleCompletedEvent
   - Contains: saleId, invoiceNumber, total, occurredAt
   - _Requirements: REQ-10_
   - _Estimated: 15 minutes_
 
-- [ ] 7.2 Implement StockLowEvent
+- [x] 7.2 Implement StockLowEvent
   - Contains: productId, sku, productName, currentStock, minStock, occurredAt
   - _Requirements: REQ-15_
   - _Estimated: 15 minutes_
@@ -250,84 +250,84 @@ This document outlines the implementation plan for the **POS Backend API**, a RE
 
 ### Phase 3: Application Layer (4 days)
 
-- [ ] 8. Create use case interfaces (input ports)
+- [x] 8. Create use case interfaces (input ports)
   - Define contracts for all operations
   - No implementation details
   - _Requirements: REQ-1 through REQ-23_
 
-- [ ] 8.1 Implement Product use case interfaces
+- [x] 8.1 Implement Product use case interfaces
   - GetProductsUseCase, GetProductByIdUseCase, CreateProductUseCase, UpdateProductUseCase, DeleteProductUseCase
   - _Requirements: REQ-1, REQ-2, REQ-3, REQ-4_
   - _Estimated: 1 hour_
 
-- [ ] 8.2 Implement Cart use case interfaces
+- [x] 8.2 Implement Cart use case interfaces
   - CreateCartUseCase, GetCartUseCase, AddProductToCartUseCase, RemoveProductFromCartUseCase
   - _Requirements: REQ-7, REQ-8, REQ-9_
   - _Estimated: 30 minutes_
 
-- [ ] 8.3 Implement Sale use case interfaces
+- [x] 8.3 Implement Sale use case interfaces
   - ProcessSaleUseCase, CancelSaleUseCase, GetSalesHistoryUseCase, GetSaleByIdUseCase
   - _Requirements: REQ-10, REQ-11, REQ-12_
   - _Estimated: 30 minutes_
 
-- [ ] 8.4 Implement Customer use case interfaces
+- [x] 8.4 Implement Customer use case interfaces
   - GetCustomersUseCase, GetCustomerByIdUseCase, CreateCustomerUseCase, UpdateCustomerUseCase
   - _Requirements: REQ-5, REQ-6_
   - _Estimated: 30 minutes_
 
-- [ ] 8.5 Implement Category use case interfaces
+- [x] 8.5 Implement Category use case interfaces
   - GetCategoriesUseCase, GetCategoryByIdUseCase, CreateCategoryUseCase, DeleteCategoryUseCase
   - _Requirements: REQ-22_
   - _Estimated: 30 minutes_
 
-- [ ] 9. Create DTOs (Java Records)
+- [x] 9. Create DTOs (Java Records)
   - Request and response objects
   - Jakarta validation annotations
   - _Requirements: REQ-1 through REQ-25_
 
-- [ ] 9.1 Implement Product DTOs
+- [x] 9.1 Implement Product DTOs
   - CreateProductRequest, UpdateProductRequest, ProductResponse, ProductFilters
   - Validation: @NotBlank, @Positive, @PositiveOrZero, @Size, @Digits
   - _Requirements: REQ-1, REQ-2, REQ-3_
   - _Estimated: 2 hours_
 
-- [ ] 9.2 Implement Cart DTOs
+- [x] 9.2 Implement Cart DTOs
   - CreateCartRequest, AddToCartRequest, CartResponse, CartItemResponse
   - Validation: quantity range 1-999,999
   - _Requirements: REQ-7, REQ-8_
   - _Estimated: 1 hour_
 
-- [ ] 9.3 Implement Sale DTOs
+- [x] 9.3 Implement Sale DTOs
   - ProcessSaleRequest, PaymentDetails, CardDetails, SaleResponse, SaleItemResponse, SaleFilters
   - Payment method and details validation
   - _Requirements: REQ-10, REQ-12_
   - _Estimated: 2 hours_
 
-- [ ] 9.4 Implement Customer DTOs
+- [x] 9.4 Implement Customer DTOs
   - CreateCustomerRequest, UpdateCustomerRequest, CustomerResponse, CustomerFilters
   - NIT validation, customer type, credit limit
   - _Requirements: REQ-5, REQ-6_
   - _Estimated: 1 hour_
 
-- [ ] 9.5 Implement common DTOs
+- [x] 9.5 Implement common DTOs
   - PagedResponse<T>, ApiErrorResponse, AuthResponse, LoginRequest, RefreshTokenRequest
   - Generic pagination wrapper with navigation flags
   - _Requirements: REQ-19, REQ-20_
   - _Estimated: 1 hour_
 
-- [ ] 10. Implement use case services
+- [x] 10. Implement use case services
   - @Service annotation with @Transactional
   - Constructor injection (no @Autowired on fields)
   - _Requirements: REQ-1 through REQ-23_
 
-- [ ] 10.1 Implement CreateProductService
+- [x] 10.1 Implement CreateProductService
   - Validate unique SKU before saving
   - Validate category exists
   - Create Product via factory method
   - _Requirements: REQ-1_
   - _Estimated: 2 hours_
 
-- [ ] 10.2 Implement GetProductsService
+- [x] 10.2 Implement GetProductsService
   - Support filters: categoryId, name, active, lowStock
   - Pagination with default size 20, max 100
   - Return PagedResponse<ProductResponse>
@@ -340,28 +340,28 @@ This document outlines the implementation plan for the **POS Backend API**, a RE
   - **Validates: Requirements REQ-2.1, REQ-2.2, REQ-20.1, REQ-20.3**
   - _Estimated: 2 hours_
 
-- [ ] 10.4 Implement UpdateProductService
+- [x] 10.4 Implement UpdateProductService
   - Partial update support (only non-null fields)
   - Validate unique SKU if changed
   - Validate category exists if changed
   - _Requirements: REQ-3_
   - _Estimated: 2 hours_
 
-- [ ] 10.5 Implement DeleteProductService
+- [x] 10.5 Implement DeleteProductService
   - Check for sale history
   - Soft delete if has sales, hard delete if not
   - Set active = false for soft delete
   - _Requirements: REQ-4_
   - _Estimated: 1 hour_
 
-- [ ] 10.6 Implement CreateCartService
+- [x] 10.6 Implement CreateCartService
   - Generate unique cart ID
   - Associate with customer if customerId provided
   - Initialize empty items list
   - _Requirements: REQ-7_
   - _Estimated: 1 hour_
 
-- [ ] 10.7 Implement AddProductToCartService
+- [x] 10.7 Implement AddProductToCartService
   - Validate product exists and is active
   - Validate stock availability
   - Handle existing item quantity increase
@@ -375,14 +375,14 @@ This document outlines the implementation plan for the **POS Backend API**, a RE
   - **Validates: Requirements REQ-8.1, REQ-8.2, REQ-8.4**
   - _Estimated: 2 hours_
 
-- [ ] 10.9 Implement RemoveProductFromCartService
+- [x] 10.9 Implement RemoveProductFromCartService
   - Validate item exists in cart
   - Remove item and recalculate totals
   - Return empty cart if last item removed
   - _Requirements: REQ-9_
   - _Estimated: 1 hour_
 
-- [ ] 10.10 Implement ProcessSaleService
+- [x] 10.10 Implement ProcessSaleService
   - Validate cart exists and is not empty
   - Validate stock for all items BEFORE any modification
   - Process payment via appropriate PaymentGateway
@@ -402,7 +402,7 @@ This document outlines the implementation plan for the **POS Backend API**, a RE
   - **Validates: Requirements REQ-10.1, REQ-10.2, REQ-10.4, REQ-13.1, REQ-13.2**
   - _Estimated: 3 hours_
 
-- [ ] 10.12 Implement CancelSaleService
+- [x] 10.12 Implement CancelSaleService
   - Validate sale exists and is COMPLETED
   - Change status to CANCELLED
   - Restore stock quantities
@@ -416,7 +416,7 @@ This document outlines the implementation plan for the **POS Backend API**, a RE
   - **Validates: Requirements REQ-11.1**
   - _Estimated: 2 hours_
 
-- [ ] 10.14 Implement GetSalesHistoryService
+- [x] 10.14 Implement GetSalesHistoryService
   - Support filters: date range, customerId, status, paymentMethod
   - USER sees only their own sales
   - ADMIN sees all sales
@@ -430,27 +430,27 @@ This document outlines the implementation plan for the **POS Backend API**, a RE
   - **Validates: Requirements REQ-12.1, REQ-12.3**
   - _Estimated: 2 hours_
 
-- [ ] 10.16 Implement CreateCustomerService
+- [x] 10.16 Implement CreateCustomerService
   - Validate unique NIT
   - Validate credit limit rules based on type
   - Default to REGULAR type if not specified
   - _Requirements: REQ-5_
   - _Estimated: 2 hours_
 
-- [ ] 10.17 Implement GetCustomersService
+- [x] 10.17 Implement GetCustomersService
   - Support filters: type, name, nit
   - Pagination support
   - _Requirements: REQ-6_
   - _Estimated: 1 hour_
 
-- [ ] 10.18 Implement CreateCategoryService
+- [x] 10.18 Implement CreateCategoryService
   - Validate parent exists if parentId provided
   - Calculate level based on parent
   - Prevent circular references
   - _Requirements: REQ-22_
   - _Estimated: 2 hours_
 
-- [ ] 11. Checkpoint - Phase 3 complete
+- [~] 11. Checkpoint - Phase 3 complete
   - Ensure all use case services compile
   - Run unit tests for domain entities
   - Verify no Spring dependencies in domain layer
@@ -465,7 +465,7 @@ This document outlines the implementation plan for the **POS Backend API**, a RE
   - Lazy loading for relationships
   - _Requirements: REQ-25_
 
-- [ ] 12.1 Implement ProductEntity
+- [~] 12.1 Implement ProductEntity
   - Map to products table
   - @ManyToOne with CategoryEntity (lazy)
   - Unique constraint on SKU
@@ -474,14 +474,14 @@ This document outlines the implementation plan for the **POS Backend API**, a RE
   - _Requirements: REQ-1, REQ-25_
   - _Estimated: 2 hours_
 
-- [ ] 12.2 Implement CategoryEntity
+- [~] 12.2 Implement CategoryEntity
   - Self-referencing @ManyToOne for parent
   - @OneToMany for children
   - Level field for hierarchy depth
   - _Requirements: REQ-22, REQ-25_
   - _Estimated: 1 hour_
 
-- [ ] 12.3 Implement SaleEntity and SaleItemEntity
+- [~] 12.3 Implement SaleEntity and SaleItemEntity
   - SaleEntity with @OneToMany cascade ALL
   - SaleItemEntity with @ManyToOne to ProductEntity
   - Invoice number unique constraint
@@ -489,21 +489,21 @@ This document outlines the implementation plan for the **POS Backend API**, a RE
   - _Requirements: REQ-10, REQ-25_
   - _Estimated: 2 hours_
 
-- [ ] 12.4 Implement CustomerEntity
+- [~] 12.4 Implement CustomerEntity
   - Unique constraint on NIT
   - CustomerType enum as STRING
   - Credit limit precision 10,2
   - _Requirements: REQ-5, REQ-25_
   - _Estimated: 1 hour_
 
-- [ ] 12.5 Implement UserEntity
+- [~] 12.5 Implement UserEntity
   - Unique constraint on username
   - Role enum (USER, ADMIN)
   - Password as bcrypt hash
   - _Requirements: REQ-17, REQ-18, REQ-25_
   - _Estimated: 1 hour_
 
-- [ ] 12.6 Implement InvoiceSequenceEntity
+- [~] 12.6 Implement InvoiceSequenceEntity
   - For atomic invoice number generation
   - Unique constraint on date
   - Sequence counter
@@ -516,7 +516,7 @@ This document outlines the implementation plan for the **POS Backend API**, a RE
   - @Query for complex queries
   - _Requirements: REQ-25_
 
-- [ ] 13.1 Implement JpaProductRepository
+- [~] 13.1 Implement JpaProductRepository
   - findBySku(String sku)
   - existsBySku(String sku)
   - @Query for low stock products
@@ -524,7 +524,7 @@ This document outlines the implementation plan for the **POS Backend API**, a RE
   - _Requirements: REQ-1, REQ-2, REQ-3, REQ-4, REQ-15_
   - _Estimated: 2 hours_
 
-- [ ] 13.2 Implement JpaSaleRepository
+- [~] 13.2 Implement JpaSaleRepository
   - findByInvoiceNumber(String invoiceNumber)
   - @Query for date range filtering
   - @Query for customer filtering
@@ -532,27 +532,27 @@ This document outlines the implementation plan for the **POS Backend API**, a RE
   - _Requirements: REQ-10, REQ-12, REQ-13_
   - _Estimated: 2 hours_
 
-- [ ] 13.3 Implement JpaCustomerRepository
+- [~] 13.3 Implement JpaCustomerRepository
   - findByNit(String nit)
   - existsByNit(String nit)
   - @Query for type filtering
   - _Requirements: REQ-5, REQ-6_
   - _Estimated: 1 hour_
 
-- [ ] 13.4 Implement JpaUserRepository
+- [~] 13.4 Implement JpaUserRepository
   - findByUsername(String username)
   - existsByUsername(String username)
   - _Requirements: REQ-17_
   - _Estimated: 30 minutes_
 
-- [ ] 13.5 Implement JpaCategoryRepository
+- [~] 13.5 Implement JpaCategoryRepository
   - findByParentId(String parentId)
   - @Query for counting children
   - @Query for counting products
   - _Requirements: REQ-22_
   - _Estimated: 1 hour_
 
-- [ ] 13.6 Implement JpaCartRepository
+- [~] 13.6 Implement JpaCartRepository
   - In-memory implementation option for MVP
   - findById, save, deleteById
   - _Requirements: REQ-7, REQ-8, REQ-9_
@@ -564,7 +564,7 @@ This document outlines the implementation plan for the **POS Backend API**, a RE
   - Handle pagination mapping
   - _Requirements: REQ-1 through REQ-25_
 
-- [ ] 14.1 Implement ProductRepositoryAdapter
+- [~] 14.1 Implement ProductRepositoryAdapter
   - Implement ProductRepository port
   - Use JpaProductRepository
   - Specification for dynamic filters
@@ -579,7 +579,7 @@ This document outlines the implementation plan for the **POS Backend API**, a RE
   - **Validates: Requirements REQ-1.2, REQ-3.2, REQ-1.1, REQ-2.4, REQ-3.1, REQ-4.4, REQ-4.5**
   - _Estimated: 3 hours_
 
-- [ ] 14.3 Implement SaleRepositoryAdapter
+- [~] 14.3 Implement SaleRepositoryAdapter
   - Implement SaleRepository port
   - Use JpaSaleRepository
   - Atomic invoice sequence generation with pessimistic lock
@@ -592,7 +592,7 @@ This document outlines the implementation plan for the **POS Backend API**, a RE
   - **Validates: Requirements REQ-13.1, REQ-13.2**
   - _Estimated: 2 hours_
 
-- [ ] 14.5 Implement CustomerRepositoryAdapter
+- [~] 14.5 Implement CustomerRepositoryAdapter
   - Implement CustomerRepository port
   - Use JpaCustomerRepository
   - _Requirements: REQ-5, REQ-6_
@@ -604,13 +604,13 @@ This document outlines the implementation plan for the **POS Backend API**, a RE
   - **Validates: Requirements REQ-5.2, REQ-5.7, REQ-5.8, REQ-5.9**
   - _Estimated: 2 hours_
 
-- [ ] 14.7 Implement CartRepositoryAdapter
+- [~] 14.7 Implement CartRepositoryAdapter
   - In-memory implementation for MVP
   - Thread-safe operations
   - _Requirements: REQ-7, REQ-8, REQ-9_
   - _Estimated: 2 hours_
 
-- [ ] 14.8 Implement CategoryRepositoryAdapter
+- [~] 14.8 Implement CategoryRepositoryAdapter
   - Implement CategoryRepository port
   - Use JpaCategoryRepository
   - Hierarchy validation (no cycles)
@@ -622,26 +622,26 @@ This document outlines the implementation plan for the **POS Backend API**, a RE
   - Bidirectional conversion
   - _Requirements: REQ-25_
 
-- [ ] 15.1 Implement ProductEntityMapper
+- [~] 15.1 Implement ProductEntityMapper
   - toDomain(ProductEntity), toEntity(Product)
   - Handle category mapping
   - _Estimated: 1 hour_
 
-- [ ] 15.2 Implement SaleEntityMapper
+- [~] 15.2 Implement SaleEntityMapper
   - toDomain(SaleEntity), toEntity(Sale)
   - Handle sale items mapping
   - _Estimated: 1 hour_
 
-- [ ] 15.3 Implement CustomerEntityMapper
+- [~] 15.3 Implement CustomerEntityMapper
   - toDomain(CustomerEntity), toEntity(Customer)
   - _Estimated: 30 minutes_
 
-- [ ] 15.4 Implement CategoryEntityMapper
+- [~] 15.4 Implement CategoryEntityMapper
   - toDomain(CategoryEntity), toEntity(Category)
   - Handle parent/children mapping
   - _Estimated: 1 hour_
 
-- [ ] 16. Checkpoint - Phase 4 complete
+- [~] 16. Checkpoint - Phase 4 complete
   - Ensure all migrations run successfully
   - Verify repository adapters work with Testcontainers
   - Test database constraints
@@ -657,7 +657,7 @@ This document outlines the implementation plan for the **POS Backend API**, a RE
   - OpenAPI annotations
   - _Requirements: REQ-1 through REQ-24_
 
-- [ ] 17.1 Implement ProductController
+- [~] 17.1 Implement ProductController
   - GET /api/v1/products (paginated, filtered)
   - GET /api/v1/products/{id}
   - POST /api/v1/products (ADMIN only)
@@ -675,7 +675,7 @@ This document outlines the implementation plan for the **POS Backend API**, a RE
   - **Validates: Requirements REQ-2.1, REQ-2.2, REQ-20.1, REQ-20.3, REQ-19.1**
   - _Estimated: 2 hours_
 
-- [ ] 17.3 Implement CartController
+- [~] 17.3 Implement CartController
   - POST /api/v1/carts
   - GET /api/v1/carts/{id}
   - POST /api/v1/carts/{id}/items
@@ -692,7 +692,7 @@ This document outlines the implementation plan for the **POS Backend API**, a RE
   - **Validates: Requirements REQ-7.2, REQ-8.1, REQ-8.2, REQ-9.1, REQ-9.3**
   - _Estimated: 2 hours_
 
-- [ ] 17.5 Implement SaleController
+- [~] 17.5 Implement SaleController
   - POST /api/v1/sales (process sale)
   - GET /api/v1/sales (history, filtered)
   - GET /api/v1/sales/{id}
@@ -709,7 +709,7 @@ This document outlines the implementation plan for the **POS Backend API**, a RE
   - **Validates: Requirements REQ-10.2, REQ-10.4, REQ-11.1, REQ-12.1**
   - _Estimated: 3 hours_
 
-- [ ] 17.7 Implement CustomerController
+- [~] 17.7 Implement CustomerController
   - GET /api/v1/customers (paginated, filtered)
   - GET /api/v1/customers/{id}
   - GET /api/v1/customers/nit/{nit}
@@ -719,7 +719,7 @@ This document outlines the implementation plan for the **POS Backend API**, a RE
   - _Requirements: REQ-5, REQ-6, REQ-24_
   - _Estimated: 2 hours_
 
-- [ ] 17.8 Implement CategoryController
+- [~] 17.8 Implement CategoryController
   - GET /api/v1/categories
   - GET /api/v1/categories/{id}
   - POST /api/v1/categories (ADMIN only)
@@ -728,7 +728,7 @@ This document outlines the implementation plan for the **POS Backend API**, a RE
   - _Requirements: REQ-22, REQ-24_
   - _Estimated: 2 hours_
 
-- [ ] 17.9 Implement AuthController
+- [~] 17.9 Implement AuthController
   - POST /api/v1/auth/login
   - POST /api/v1/auth/refresh
   - @Tag, @Operation, @ApiResponse annotations
@@ -740,21 +740,21 @@ This document outlines the implementation plan for the **POS Backend API**, a RE
   - @Component beans
   - _Requirements: REQ-21_
 
-- [ ] 18.1 Implement CashPaymentGateway
+- [~] 18.1 Implement CashPaymentGateway
   - Validate cashReceived >= total
   - Return change amount
   - getSupportedMethod() returns CASH
   - _Requirements: REQ-21_
   - _Estimated: 1 hour_
 
-- [ ] 18.2 Implement CardPaymentGateway
+- [~] 18.2 Implement CardPaymentGateway
   - Validate card details
   - Simulate authorization (mock for MVP)
   - getSupportedMethod() returns CARD
   - _Requirements: REQ-21_
   - _Estimated: 1 hour_
 
-- [ ] 18.3 Implement TransferPaymentGateway
+- [~] 18.3 Implement TransferPaymentGateway
   - Validate transfer reference
   - Simulate transfer (mock for MVP)
   - getSupportedMethod() returns TRANSFER
@@ -767,7 +767,7 @@ This document outlines the implementation plan for the **POS Backend API**, a RE
   - Consistent error response format
   - _Requirements: REQ-19_
 
-- [ ] 19.1 Create GlobalExceptionHandler
+- [~] 19.1 Create GlobalExceptionHandler
   - ProductNotFoundException → 404 PRODUCT_NOT_FOUND
   - InsufficientStockException → 422 INSUFFICIENT_STOCK
   - DuplicateSkuException → 409 DUPLICATE_SKU
@@ -792,14 +792,14 @@ This document outlines the implementation plan for the **POS Backend API**, a RE
   - Document all endpoints
   - _Requirements: REQ-24_
 
-- [ ] 20.1 Implement OpenApiConfig
+- [~] 20.1 Implement OpenApiConfig
   - Configure API info (title, version, description)
   - Add Bearer JWT security scheme
   - Apply security globally to all endpoints
   - _Requirements: REQ-24_
   - _Estimated: 1 hour_
 
-- [ ] 20.2 Add OpenAPI annotations to all controllers
+- [~] 20.2 Add OpenAPI annotations to all controllers
   - @Tag for grouping
   - @Operation for each endpoint
   - @ApiResponse for status codes
@@ -807,7 +807,7 @@ This document outlines the implementation plan for the **POS Backend API**, a RE
   - _Requirements: REQ-24_
   - _Estimated: 2 hours_
 
-- [ ] 21. Checkpoint - Phase 5 complete
+- [~] 21. Checkpoint - Phase 5 complete
   - Verify all endpoints accessible via Swagger UI
   - Test error response format
   - Validate pagination responses
@@ -822,7 +822,7 @@ This document outlines the implementation plan for the **POS Backend API**, a RE
   - 7-day refresh tokens
   - _Requirements: REQ-17_
 
-- [ ] 22.1 Implement JwtService
+- [~] 22.1 Implement JwtService
   - generateAccessToken(username, roles)
   - generateRefreshToken(username)
   - validateToken(token) → boolean
@@ -833,7 +833,7 @@ This document outlines the implementation plan for the **POS Backend API**, a RE
   - _Requirements: REQ-17_
   - _Estimated: 3 hours_
 
-- [ ] 22.2 Implement JwtAuthenticationFilter
+- [~] 22.2 Implement JwtAuthenticationFilter
   - extends OncePerRequestFilter
   - Extract Bearer token from Authorization header
   - Validate token and set Authentication
@@ -847,7 +847,7 @@ This document outlines the implementation plan for the **POS Backend API**, a RE
   - Public vs protected endpoints
   - _Requirements: REQ-17, REQ-18_
 
-- [ ] 23.1 Implement SecurityConfig
+- [~] 23.1 Implement SecurityConfig
   - @Configuration @EnableWebSecurity
   - Define SecurityFilterChain bean
   - Configure public endpoints: /api/v1/auth/**, /swagger-ui/**, /api-docs/**
@@ -858,7 +858,7 @@ This document outlines the implementation plan for the **POS Backend API**, a RE
   - _Requirements: REQ-17, REQ-18_
   - _Estimated: 3 hours_
 
-- [ ] 23.2 Implement UserDetailsServiceImpl
+- [~] 23.2 Implement UserDetailsServiceImpl
   - implements UserDetailsService
   - Load user from JpaUserRepository
   - Convert to Spring Security UserDetails
@@ -866,7 +866,7 @@ This document outlines the implementation plan for the **POS Backend API**, a RE
   - _Requirements: REQ-17_
   - _Estimated: 1 hour_
 
-- [ ] 23.3 Configure PasswordEncoder bean
+- [~] 23.3 Configure PasswordEncoder bean
   - BCryptPasswordEncoder with strength 12
   - @Bean in SecurityConfig
   - _Requirements: REQ-17_
@@ -876,7 +876,7 @@ This document outlines the implementation plan for the **POS Backend API**, a RE
   - Login and token refresh logic
   - _Requirements: REQ-17_
 
-- [ ] 24.1 Implement AuthService
+- [~] 24.1 Implement AuthService
   - login(username, password) → AuthResponse
   - refresh(refreshToken) → AuthResponse
   - Validate credentials via AuthenticationManager
@@ -889,7 +889,7 @@ This document outlines the implementation plan for the **POS Backend API**, a RE
   - ADMIN-only endpoints
   - _Requirements: REQ-18_
 
-- [ ] 25.1 Add @PreAuthorize to controllers
+- [~] 25.1 Add @PreAuthorize to controllers
   - ProductController POST/PUT/DELETE: hasRole('ADMIN')
   - SaleController cancel: hasRole('ADMIN')
   - CategoryController POST/DELETE: hasRole('ADMIN')
@@ -902,7 +902,7 @@ This document outlines the implementation plan for the **POS Backend API**, a RE
   - **Validates: Requirements REQ-18.1, REQ-18.2, REQ-18.3, REQ-18.4, REQ-18.5**
   - _Estimated: 2 hours_
 
-- [ ] 26. Checkpoint - Phase 6 complete
+- [~] 26. Checkpoint - Phase 6 complete
   - Test login endpoint returns valid JWT
   - Test protected endpoints reject unauthenticated requests
   - Test token refresh works
@@ -918,7 +918,7 @@ This document outlines the implementation plan for the **POS Backend API**, a RE
   - Target: ≥90% coverage
   - _Requirements: REQ-1 through REQ-25_
 
-- [ ] 27.1 Write unit tests for Product entity
+- [~] 27.1 Write unit tests for Product entity
   - Test create() factory method
   - Test decreaseStock() with valid and invalid quantities
   - Test increaseStock()
@@ -927,7 +927,7 @@ This document outlines the implementation plan for the **POS Backend API**, a RE
   - _Requirements: REQ-1, REQ-3, REQ-14_
   - _Estimated: 2 hours_
 
-- [ ] 27.2 Write unit tests for Cart entity
+- [~] 27.2 Write unit tests for Cart entity
   - Test addItem() with new product
   - Test addItem() with existing product (quantity increase)
   - Test addItem() with insufficient stock
@@ -936,7 +936,7 @@ This document outlines the implementation plan for the **POS Backend API**, a RE
   - _Requirements: REQ-7, REQ-8, REQ-9_
   - _Estimated: 2 hours_
 
-- [ ] 27.3 Write unit tests for Sale entity
+- [~] 27.3 Write unit tests for Sale entity
   - Test Sale.from() factory method
   - Test cancel() with COMPLETED status
   - Test cancel() with already CANCELLED status
@@ -944,7 +944,7 @@ This document outlines the implementation plan for the **POS Backend API**, a RE
   - _Requirements: REQ-10, REQ-11_
   - _Estimated: 2 hours_
 
-- [ ] 27.4 Write unit tests for Customer entity
+- [~] 27.4 Write unit tests for Customer entity
   - Test create() with valid data
   - Test REGULAR customer cannot have credit limit
   - Test VIP/CORPORATE credit limit validation
@@ -957,14 +957,14 @@ This document outlines the implementation plan for the **POS Backend API**, a RE
   - Target: ≥80% coverage
   - _Requirements: REQ-1 through REQ-23_
 
-- [ ] 28.1 Write unit tests for CreateProductService
+- [~] 28.1 Write unit tests for CreateProductService
   - Test successful product creation
   - Test duplicate SKU rejection
   - Test non-existent category rejection
   - _Requirements: REQ-1_
   - _Estimated: 1 hour_
 
-- [ ] 28.2 Write unit tests for ProcessSaleService
+- [~] 28.2 Write unit tests for ProcessSaleService
   - Test successful sale processing
   - Test insufficient stock rejection (no partial stock deduction)
   - Test payment failure (no stock deduction)
@@ -973,14 +973,14 @@ This document outlines the implementation plan for the **POS Backend API**, a RE
   - _Requirements: REQ-10_
   - _Estimated: 3 hours_
 
-- [ ] 28.3 Write unit tests for CancelSaleService
+- [~] 28.3 Write unit tests for CancelSaleService
   - Test successful cancellation with stock restoration
   - Test already cancelled rejection
   - Test non-COMPLETED status rejection
   - _Requirements: REQ-11_
   - _Estimated: 2 hours_
 
-- [ ] 28.4 Write unit tests for AddProductToCartService
+- [~] 28.4 Write unit tests for AddProductToCartService
   - Test add new product
   - Test add existing product (quantity increase)
   - Test insufficient stock rejection
@@ -994,7 +994,7 @@ This document outlines the implementation plan for the **POS Backend API**, a RE
   - Transaction rollback between tests
   - _Requirements: REQ-1 through REQ-25_
 
-- [ ] 29.1 Write integration tests for ProductRepositoryAdapter
+- [~] 29.1 Write integration tests for ProductRepositoryAdapter
   - Test CRUD operations with real database
   - Test pagination
   - Test filtering by category
@@ -1002,21 +1002,21 @@ This document outlines the implementation plan for the **POS Backend API**, a RE
   - _Requirements: REQ-1, REQ-2, REQ-3, REQ-4_
   - _Estimated: 3 hours_
 
-- [ ] 29.2 Write integration tests for SaleRepositoryAdapter
+- [~] 29.2 Write integration tests for SaleRepositoryAdapter
   - Test sale creation with items
   - Test invoice sequence generation (concurrent safety)
   - Test sales history queries
   - _Requirements: REQ-10, REQ-12, REQ-13_
   - _Estimated: 3 hours_
 
-- [ ] 29.3 Write integration tests for ProcessSaleService
+- [~] 29.3 Write integration tests for ProcessSaleService
   - Full transaction test with rollback on failure
   - Test stock deduction atomicity
   - Test payment integration
   - _Requirements: REQ-10_
   - _Estimated: 3 hours_
 
-- [ ] 29.4 Write Flyway migration tests
+- [~] 29.4 Write Flyway migration tests
   - Verify all migrations run successfully
   - Verify schema matches JPA entities
   - Test migration rollback where possible
@@ -1029,7 +1029,7 @@ This document outlines the implementation plan for the **POS Backend API**, a RE
   - Test validation errors
   - _Requirements: REQ-1 through REQ-24_
 
-- [ ] 30.1 Write API tests for ProductController
+- [~] 30.1 Write API tests for ProductController
   - Test GET all with pagination
   - Test GET by id
   - Test POST with valid/invalid data
@@ -1039,7 +1039,7 @@ This document outlines the implementation plan for the **POS Backend API**, a RE
   - _Requirements: REQ-1, REQ-2, REQ-3, REQ-4_
   - _Estimated: 3 hours_
 
-- [ ] 30.2 Write API tests for SaleController
+- [~] 30.2 Write API tests for SaleController
   - Test POST process sale
   - Test GET history with filters
   - Test POST cancel (ADMIN only)
@@ -1047,7 +1047,7 @@ This document outlines the implementation plan for the **POS Backend API**, a RE
   - _Requirements: REQ-10, REQ-11, REQ-12_
   - _Estimated: 3 hours_
 
-- [ ] 30.3 Write API tests for AuthController
+- [~] 30.3 Write API tests for AuthController
   - Test login with valid credentials
   - Test login with invalid credentials
   - Test token refresh
@@ -1055,14 +1055,14 @@ This document outlines the implementation plan for the **POS Backend API**, a RE
   - _Requirements: REQ-17_
   - _Estimated: 2 hours_
 
-- [ ] 30.4 Write validation tests
+- [~] 30.4 Write validation tests
   - Test all DTO validation rules
   - Test field-level errors
   - Test error response format
   - _Requirements: REQ-19_
   - _Estimated: 2 hours_
 
-- [ ] 31. Checkpoint - Phase 7 complete
+- [~] 31. Checkpoint - Phase 7 complete
   - Run all tests and verify coverage ≥80%
   - Run domain layer tests and verify coverage ≥90%
   - Generate coverage report
@@ -1077,7 +1077,7 @@ This document outlines the implementation plan for the **POS Backend API**, a RE
   - Logging configuration
   - _Requirements: REQ-25_
 
-- [ ] 32.1 Implement application-prod.yml
+- [~] 32.1 Implement application-prod.yml
   - Database connection pooling (HikariCP)
   - Logging level WARN for production
   - JWT secret from environment variable
@@ -1085,7 +1085,7 @@ This document outlines the implementation plan for the **POS Backend API**, a RE
   - _Requirements: REQ-25_
   - _Estimated: 1 hour_
 
-- [ ] 32.2 Configure Spring Actuator
+- [~] 32.2 Configure Spring Actuator
   - Enable health endpoint
   - Enable info endpoint
   - Enable metrics endpoint
@@ -1099,14 +1099,14 @@ This document outlines the implementation plan for the **POS Backend API**, a RE
   - Optimized image size
   - _Requirements: REQ-25_
 
-- [ ] 33.1 Implement Dockerfile
+- [~] 33.1 Implement Dockerfile
   - FROM eclipse-temurin:21-jre-alpine
   - Single JAR copy
   - Non-root user
   - Health check
   - _Estimated: 1 hour_
 
-- [ ] 33.2 Create docker-compose.prod.yml
+- [~] 33.2 Create docker-compose.prod.yml
   - Application service
   - PostgreSQL service with volume
   - Network configuration
@@ -1118,7 +1118,7 @@ This document outlines the implementation plan for the **POS Backend API**, a RE
   - Test → Build → Docker → Deploy
   - _Requirements: REQ-25_
 
-- [ ] 34.1 Create GitHub Actions workflow
+- [~] 34.1 Create GitHub Actions workflow
   - Trigger on push to main
   - Job: Run tests with Testcontainers
   - Job: Build JAR with Maven
@@ -1126,7 +1126,7 @@ This document outlines the implementation plan for the **POS Backend API**, a RE
   - Job: Deploy (placeholder for specific platform)
   - _Estimated: 3 hours_
 
-- [ ] 34.2 Configure GitHub secrets
+- [~] 34.2 Configure GitHub secrets
   - JWT_SECRET
   - DATABASE_URL
   - DATABASE_USER
@@ -1140,27 +1140,27 @@ This document outlines the implementation plan for the **POS Backend API**, a RE
   - Update API documentation
   - _Requirements: REQ-24, REQ-25_
 
-- [ ] 35.1 Run full test suite
+- [~] 35.1 Run full test suite
   - All unit tests pass
   - All integration tests pass
   - Coverage report generated
   - _Estimated: 1 hour_
 
-- [ ] 35.2 Verify API documentation
+- [~] 35.2 Verify API documentation
   - All endpoints documented in Swagger UI
   - All DTOs have schemas
   - Security scheme configured
   - _Requirements: REQ-24_
   - _Estimated: 1 hour_
 
-- [ ] 35.3 Create deployment checklist
+- [~] 35.3 Create deployment checklist
   - Database migrations run
   - Environment variables set
   - Health check endpoint working
   - CORS configured correctly
   - _Estimated: 1 hour_
 
-- [ ] 36. Final checkpoint - Project complete
+- [~] 36. Final checkpoint - Project complete
   - All phases completed
   - All tests passing
   - API deployed and accessible

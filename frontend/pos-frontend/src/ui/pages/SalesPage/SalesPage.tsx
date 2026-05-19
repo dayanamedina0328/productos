@@ -41,7 +41,12 @@ const SalesPage = () => {
   const handleAddToCart = useCallback(
     async (product: Product) => {
       try {
-        await addItem(product.id, 1, cart?.id);
+        const updatedCart = await addItem(product.id, 1, cart?.id);
+        notify({
+          type: 'success',
+          title: 'Producto agregado',
+          message: `${product.name} se agregó al carrito`,
+        });
       } catch (err) {
         notify({
           type: 'error',
@@ -122,7 +127,22 @@ const SalesPage = () => {
   useKeyboardShortcuts({
     onSearch: () => searchInputRef.current?.focus(),
     onFocusSearch: () => searchInputRef.current?.focus(),
-    onCheckout: () => { if (cart && cart.items.length > 0) setIsCheckoutOpen(true); },
+    onCheckout: () => {
+      console.log('onCheckout called', { cart, hasItems: cart?.items.length });
+      if (cart && cart.items.length > 0) {
+        setIsCheckoutOpen(true);
+      } else {
+        notify({ type: 'error', title: 'Carrito vacío', message: 'Agrega productos antes de cobrar' });
+      }
+    },
+    onPay: () => {
+      console.log('onPay called (F5)', { cart, hasItems: cart?.items.length });
+      if (cart && cart.items.length > 0) {
+        setIsCheckoutOpen(true);
+      } else {
+        notify({ type: 'error', title: 'Carrito vacío', message: 'Agrega productos antes de cobrar' });
+      }
+    },
     onOpenCustomer: () => setIsCustomerOpen(true),
     onEscape: () => {
       setIsCheckoutOpen(false);

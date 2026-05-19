@@ -32,7 +32,7 @@ public class CartService implements CreateCartUseCase, GetCartUseCase,
     }
 
     @Override
-    public CartResponse execute(String customerId) {
+    public CartResponse createCart(String customerId) {
         Cart cart = new Cart(UUID.randomUUID().toString(), customerId);
         Cart saved = cartRepository.save(cart);
         return cartMapper.toResponse(saved);
@@ -40,14 +40,14 @@ public class CartService implements CreateCartUseCase, GetCartUseCase,
 
     @Override
     @Transactional(readOnly = true)
-    public CartResponse execute(String cartId) {
+    public CartResponse getCart(String cartId) {
         Cart cart = cartRepository.findById(cartId)
             .orElseThrow(() -> new CartNotFoundException(cartId));
         return cartMapper.toResponse(cart);
     }
 
     @Override
-    public CartResponse execute(String cartId, AddToCartRequest request) {
+    public CartResponse addProduct(String cartId, AddToCartRequest request) {
         Cart cart = cartRepository.findById(cartId)
             .orElseThrow(() -> new CartNotFoundException(cartId));
 
@@ -60,7 +60,7 @@ public class CartService implements CreateCartUseCase, GetCartUseCase,
     }
 
     @Override
-    public CartResponse execute(String cartId, String productId) {
+    public CartResponse removeProduct(String cartId, String productId) {
         Cart cart = cartRepository.findById(cartId)
             .orElseThrow(() -> new CartNotFoundException(cartId));
 

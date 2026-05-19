@@ -78,7 +78,7 @@ export function ProductBrowser({ onAddToCart, searchInputRef, className }: Produ
           />
         ) : (
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 pb-4">
-            {products.items.map((product) => (
+            {products.items.filter(p => p != null && p.id != null).map((product) => (
               <ProductCard
                 key={product.id}
                 product={product}

@@ -19,5 +19,5 @@ public class InvoiceSequenceEntity {
     private LocalDate dateKey;
 
     @Column(name = "sequence", nullable = false)
-    private long sequence;
+    private int sequence;
 }

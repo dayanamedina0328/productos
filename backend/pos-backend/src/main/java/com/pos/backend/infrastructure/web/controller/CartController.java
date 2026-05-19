@@ -35,26 +35,26 @@ public class CartController {
     @PostMapping
     @Operation(summary = "Create a new cart")
     public ResponseEntity<CartResponse> createCart(@RequestParam(required = false) String customerId) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(createCartUseCase.execute(customerId));
+        return ResponseEntity.status(HttpStatus.CREATED).body(createCartUseCase.createCart(customerId));
     }
 
     @GetMapping("/{id}")
     @Operation(summary = "Get cart by ID")
     public ResponseEntity<CartResponse> getCart(@PathVariable String id) {
-        return ResponseEntity.ok(getCartUseCase.execute(id));
+        return ResponseEntity.ok(getCartUseCase.getCart(id));
     }
 
     @PostMapping("/{id}/items")
     @Operation(summary = "Add product to cart")
     public ResponseEntity<CartResponse> addItem(@PathVariable String id,
                                                  @Valid @RequestBody AddToCartRequest request) {
-        return ResponseEntity.ok(addProductToCartUseCase.execute(id, request));
+        return ResponseEntity.ok(addProductToCartUseCase.addProduct(id, request));
     }
 
     @DeleteMapping("/{id}/items/{productId}")
     @Operation(summary = "Remove product from cart")
     public ResponseEntity<CartResponse> removeItem(@PathVariable String id,
                                                     @PathVariable String productId) {
-        return ResponseEntity.ok(removeProductFromCartUseCase.execute(id, productId));
+        return ResponseEntity.ok(removeProductFromCartUseCase.removeProduct(id, productId));
     }
 }

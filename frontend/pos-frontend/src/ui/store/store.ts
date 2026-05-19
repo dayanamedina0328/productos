@@ -9,7 +9,19 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
-import storage from 'redux-persist/lib/storage'; // localStorage
+const storage = {
+  getItem: (key: string) => {
+    return Promise.resolve(localStorage.getItem(key));
+  },
+  setItem: (key: string, item: string) => {
+    localStorage.setItem(key, item);
+    return Promise.resolve();
+  },
+  removeItem: (key: string) => {
+    localStorage.removeItem(key);
+    return Promise.resolve();
+  }
+};
 
 import productsReducer from './slices/productsSlice';
 import cartReducer from './slices/cartSlice';

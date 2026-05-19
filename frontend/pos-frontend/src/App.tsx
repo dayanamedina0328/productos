@@ -11,8 +11,6 @@ import { Spinner } from '@/ui/components/base/Spinner';
 const LoginPage = lazy(() => import('@/ui/pages/LoginPage/LoginPage'));
 const SalesPage = lazy(() => import('@/ui/pages/SalesPage/SalesPage'));
 const AdminPage = lazy(() => import('@/ui/pages/AdminPage/AdminPage'));
-const ProductManagementPage = lazy(() => import('@/ui/pages/AdminPage/ProductManagementPage'));
-const CustomerManagementPage = lazy(() => import('@/ui/pages/AdminPage/CustomerManagementPage'));
 const SalesHistoryPage = lazy(() => import('@/ui/pages/AdminPage/SalesHistoryPage'));
 const ReportsDashboardPage = lazy(() => import('@/ui/pages/AdminPage/ReportsDashboardPage'));
 
@@ -53,9 +51,7 @@ function App() {
               </AdminRoute>
             }
           >
-            <Route index element={<Navigate to="products" replace />} />
-            <Route path="products" element={<ProductManagementPage />} />
-            <Route path="customers" element={<CustomerManagementPage />} />
+            <Route index element={<Navigate to="sales" replace />} />
             <Route path="sales" element={<SalesHistoryPage />} />
             <Route path="reports" element={<ReportsDashboardPage />} />
           </Route>

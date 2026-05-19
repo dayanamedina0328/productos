@@ -27,7 +27,7 @@ public class CategoryService implements GetCategoriesUseCase, GetCategoryByIdUse
 
     @Override
     @Transactional(readOnly = true)
-    public List<CategoryResponse> execute() {
+    public List<CategoryResponse> getCategories() {
         return categoryRepository.findAll().stream()
             .map(this::toResponse)
             .toList();
@@ -35,13 +35,13 @@ public class CategoryService implements GetCategoriesUseCase, GetCategoryByIdUse
 
     @Override
     @Transactional(readOnly = true)
-    public CategoryResponse execute(String id) {
+    public CategoryResponse getCategoryById(String id) {
         return toResponse(categoryRepository.findById(id)
             .orElseThrow(() -> new CategoryNotFoundException(id)));
     }
 
     @Override
-    public CategoryResponse execute(CreateCategoryRequest request) {
+    public CategoryResponse createCategory(CreateCategoryRequest request) {
         int level = 0;
         if (request.parentId() != null) {
             Category parent = categoryRepository.findById(request.parentId())
@@ -58,7 +58,7 @@ public class CategoryService implements GetCategoriesUseCase, GetCategoryByIdUse
     }
 
     @Override
-    public void execute(String id) {
+    public void deleteCategory(String id) {
         categoryRepository.findById(id)
             .orElseThrow(() -> new CategoryNotFoundException(id));
 

@@ -38,27 +38,27 @@ public class CategoryController {
     @GetMapping
     @Operation(summary = "Get all categories")
     public ResponseEntity<List<CategoryResponse>> getCategories() {
-        return ResponseEntity.ok(getCategoriesUseCase.execute());
+        return ResponseEntity.ok(getCategoriesUseCase.getCategories());
     }
 
     @GetMapping("/{id}")
     @Operation(summary = "Get category by ID")
     public ResponseEntity<CategoryResponse> getCategoryById(@PathVariable String id) {
-        return ResponseEntity.ok(getCategoryByIdUseCase.execute(id));
+        return ResponseEntity.ok(getCategoryByIdUseCase.getCategoryById(id));
     }
 
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Create a new category (ADMIN only)")
     public ResponseEntity<CategoryResponse> createCategory(@Valid @RequestBody CreateCategoryRequest request) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(createCategoryUseCase.execute(request));
+        return ResponseEntity.status(HttpStatus.CREATED).body(createCategoryUseCase.createCategory(request));
     }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Delete a category (ADMIN only)")
     public ResponseEntity<Void> deleteCategory(@PathVariable String id) {
-        deleteCategoryUseCase.execute(id);
+        deleteCategoryUseCase.deleteCategory(id);
         return ResponseEntity.noContent().build();
     }
 }

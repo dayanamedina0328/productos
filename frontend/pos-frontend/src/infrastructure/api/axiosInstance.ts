@@ -5,7 +5,7 @@ import axios, { type AxiosInstance, type AxiosError, type InternalAxiosRequestCo
 // ---------------------------------------------------------------------------
 
 export const apiClient: AxiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:3000/api',
+  baseURL: import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8080/api/v1',
   timeout: 15_000,
   headers: {
     'Content-Type': 'application/json',

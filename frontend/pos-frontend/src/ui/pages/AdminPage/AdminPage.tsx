@@ -12,10 +12,9 @@ const AdminPage = () => {
 
   // Determinar el tab activo según la ruta actual
   const getActiveTab = (): AdminTab => {
-    if (location.pathname.includes('/admin/customers')) return 'customers';
     if (location.pathname.includes('/admin/sales')) return 'sales';
     if (location.pathname.includes('/admin/reports')) return 'reports';
-    return 'products';
+    return 'sales'; // Por defecto, ventas
   };
 
   const handleTabChange = (tab: AdminTab) => {

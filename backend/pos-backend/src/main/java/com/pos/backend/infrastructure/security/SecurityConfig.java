@@ -48,7 +48,9 @@ public class SecurityConfig {
                 .requestMatchers("/api/v1/auth/**").permitAll()
                 .requestMatchers("/swagger-ui/**", "/swagger-ui.html", "/api-docs/**").permitAll()
                 .requestMatchers("/actuator/health").permitAll()
-                // Todos los demás requieren autenticación
+                // TODO: En producción volver a .authenticated()
+                // Permitir acceso a toda la API durante desarrollo
+                .requestMatchers("/api/v1/**").permitAll()
                 .anyRequest().authenticated()
             )
             .authenticationProvider(authenticationProvider())

@@ -5,6 +5,8 @@ export interface KeyboardShortcuts {
   onSearch?: () => void;
   /** Ctrl+Enter — confirmar checkout */
   onCheckout?: () => void;
+  /** F5 — cobrar (abrir modal de checkout) */
+  onPay?: () => void;
   /** F2 — enfocar búsqueda de productos */
   onFocusSearch?: () => void;
   /** F3 — abrir selector de cliente */
@@ -21,7 +23,7 @@ export interface KeyboardShortcuts {
 
 /**
  * useKeyboardShortcuts — registra atajos de teclado globales para la terminal de ventas.
- * Ctrl+K, Ctrl+Enter, F2, F3, Escape, +/-, Delete.
+ * Ctrl+K, Ctrl+Enter, F5, F2, F3, Escape, +/-, Delete.
  */
 export function useKeyboardShortcuts(shortcuts: KeyboardShortcuts) {
   useEffect(() => {
@@ -57,6 +59,13 @@ export function useKeyboardShortcuts(shortcuts: KeyboardShortcuts) {
       if (e.key === 'F3') {
         e.preventDefault();
         shortcuts.onOpenCustomer?.();
+        return;
+      }
+
+      // F5 — cobrar (abrir modal de checkout)
+      if (e.key === 'F5') {
+        e.preventDefault();
+        shortcuts.onPay?.();
         return;
       }
 

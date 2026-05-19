@@ -30,19 +30,30 @@ export class ProductAPIAdapter implements ProductRepository {
 
   async findAll(filters?: ProductFilters): Promise<PaginatedResponse<Product>> {
     return withRetry(async () => {
-      const { data } = await apiClient.get<PaginatedApiResponse<ProductApiResponse>>(this.base, {
+      const { data } = await apiClient.get<any>(this.base, {
         params: filters,
       });
+      
+      // Manejar ambos formatos: con pagination anidado o campos planos
+      const pagination = data.pagination ? {
+        page: data.pagination.page,
+        pageSize: data.pagination.pageSize ?? data.pagination.page_size ?? 10,
+        totalItems: data.pagination.totalItems ?? data.pagination.total_items ?? 0,
+        totalPages: data.pagination.totalPages ?? data.pagination.total_pages ?? 1,
+        hasNext: data.pagination.hasNext ?? data.pagination.has_next ?? false,
+        hasPrevious: data.pagination.hasPrevious ?? data.pagination.has_previous ?? false,
+      } : {
+        page: data.page ?? 0,
+        pageSize: data.pageSize ?? data.page_size ?? 10,
+        totalItems: data.totalItems ?? data.total_items ?? 0,
+        totalPages: data.totalPages ?? data.total_pages ?? 1,
+        hasNext: data.hasNext ?? data.has_next ?? false,
+        hasPrevious: data.hasPrevious ?? data.has_previous ?? false,
+      };
+      
       return {
-        items: ProductMapper.toDomainList(data.items),
-        pagination: {
-          page: data.pagination.page,
-          pageSize: data.pagination.pageSize ?? data.pagination.page_size ?? 10,
-          totalItems: data.pagination.totalItems ?? data.pagination.total_items ?? 0,
-          totalPages: data.pagination.totalPages ?? data.pagination.total_pages ?? 1,
-          hasNext: data.pagination.hasNext ?? data.pagination.has_next ?? false,
-          hasPrevious: data.pagination.hasPrevious ?? data.pagination.has_previous ?? false,
-        },
+        items: ProductMapper.toDomainList(data.items || []),
+        pagination,
       };
     });
   }

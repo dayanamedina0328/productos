@@ -5,5 +5,5 @@ import com.pos.backend.application.dto.response.CategoryResponse;
 import java.util.List;
 
 public interface GetCategoriesUseCase {
-    List<CategoryResponse> execute();
+    List<CategoryResponse> getCategories();
 }

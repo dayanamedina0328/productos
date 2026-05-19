@@ -67,7 +67,7 @@ public class SaleRepositoryAdapter implements SaleRepository {
     public long getNextInvoiceSequence(LocalDate date) {
         InvoiceSequenceEntity seq = invoiceSequenceRepository
             .findByDateKeyWithLock(date)
-            .orElse(InvoiceSequenceEntity.builder().dateKey(date).sequence(0L).build());
+            .orElse(InvoiceSequenceEntity.builder().dateKey(date).sequence(0).build());
 
         seq.setSequence(seq.getSequence() + 1);
         invoiceSequenceRepository.save(seq);
